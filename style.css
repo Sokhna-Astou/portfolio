@@ -1,0 +1,122 @@
+:root {
+  --fond: #1a1226;
+  --texte: #fff0f5;
+  --petale: #ffb7c5;
+  --rose-doux: #ffd6e0;
+  --lavande: #cdb4db;
+  --or: #f2d7a0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  color: var(--texte);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 183, 197, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(205, 180, 219, 0.18), transparent 45%),
+    var(--fond);
+}
+
+.hero {
+  min-height: 100vh;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.4rem;
+}
+
+/* Petite ligne du haut, avec des étoiles de chaque côté */
+.etiquette {
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--or);
+}
+
+.etiquette::before,
+.etiquette::after {
+  content: "✦";
+  color: var(--petale);
+  font-size: 0.6rem;
+  margin: 0 1em;
+}
+
+.nom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Prénom en calligraphie, dégradé rose vers lavande */
+.prenom {
+  font-family: "Pinyon Script", cursive;
+  font-weight: 400;
+  font-size: clamp(3.5rem, 12vw, 8rem);
+  line-height: 1.2;
+  padding: 0 0.2em;
+  background: linear-gradient(90deg, var(--rose-doux), var(--petale), var(--lavande));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(255, 183, 197, 0.3));
+}
+
+/* Nom : contour rose + remplissage rosé transparent, comme du verre */
+.nom-famille {
+  font-family: "Bodoni Moda", serif;
+  font-weight: 600;
+  font-size: clamp(2.6rem, 9.5vw, 6.5rem);
+  letter-spacing: 0.14em;
+  padding-left: 0.14em; /* garde le mot bien centré */
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(255, 183, 197, 0.3), rgba(205, 180, 219, 0.05));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--petale);
+  filter: drop-shadow(0 0 18px rgba(255, 183, 197, 0.35));
+}
+
+.ornement {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: min(90%, 420px);
+}
+
+.trait {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--petale), transparent);
+}
+
+.fleur {
+  color: var(--petale);
+  font-size: 1.6rem;
+  animation: tourner 6s linear infinite;
+}
+
+@keyframes tourner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.intro {
+  max-width: 34rem;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--rose-doux);
+  text-wrap: balance;
+}
