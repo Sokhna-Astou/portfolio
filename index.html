@@ -15,27 +15,255 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Les pétales qui tombent (remplis par script.js) -->
     <div class="petales" aria-hidden="true"></div>
 
-    <main class="hero">
-      <p class="etiquette">Étudiante · Développeuse · Créatrice</p>
+    <!-- MENU -->
+    <header class="menu">
+      <a href="#accueil" class="logo">Astou <span>✿</span></a>
+      <nav>
+        <a href="#apropos">À propos</a>
+        <a href="#projets">Projets</a>
+        <a href="#passions">Passions</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-      <h1 class="nom">
-        <span class="prenom">Sokhna Astou</span>
-        <span class="nom-famille">Diagne</span>
-      </h1>
+    <main>
+      <!-- ACCUEIL -->
+      <section class="hero" id="accueil">
+        <p class="etiquette">Étudiante · Développeuse · Créatrice</p>
 
-      <div class="ornement" aria-hidden="true">
-        <span class="trait"></span>
-        <span class="fleur">✿</span>
-        <span class="trait"></span>
-      </div>
+        <h1 class="nom">
+          <span class="prenom">Sokhna Astou</span>
+          <span class="nom-famille">Diagne</span>
+        </h1>
 
-      <p class="intro">
-        Étudiante en L3 MIAGE à l'Université Gaston Berger de Saint&#8209;Louis.
-      </p>
+        <div class="ornement" aria-hidden="true">
+          <span class="trait"></span>
+          <span class="fleur">✿</span>
+          <span class="trait"></span>
+        </div>
+
+        <p class="intro">
+          Étudiante en L3 MIAGE à l'Université Gaston Berger de Saint&#8209;Louis.
+        </p>
+
+        <div class="boutons">
+          <a href="#contact" class="bouton">Discutons</a>
+          <!-- À REMPLACER : le lien vers ton CV en PDF -->
+          <a href="#" class="bouton bouton-contour">Télécharger mon CV</a>
+        </div>
+      </section>
+
+      <!-- À PROPOS -->
+      <section class="section" id="apropos">
+        <div class="conteneur">
+          <p class="surtitre">01 — À propos</p>
+          <h2 class="titre-section">Qui suis-je ?</h2>
+
+          <!-- À MODIFIER : écris ici ta vraie présentation -->
+          <p class="texte-principal">
+            Je suis Sokhna Astou Diagne, étudiante en troisième année de MIAGE à
+            l'Université Gaston Berger. J'aime transformer des idées en
+            applications utiles, de la conception jusqu'à la mise en ligne.
+          </p>
+
+          <div class="grille">
+            <article class="carte">
+              <h3>Formation</h3>
+              <p>Licence 3 MIAGE, Université Gaston Berger.</p>
+            </article>
+            <article class="carte">
+              <h3>Passions</h3>
+              <p>Développement logiciel, bases de données et gestion de projet.</p>
+            </article>
+            <article class="carte">
+              <h3>Engagement</h3>
+              <p>Membre du Club MIAGE.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJETS -->
+      <section class="section" id="projets">
+        <div class="conteneur">
+          <p class="surtitre">02 — Projets</p>
+          <h2 class="titre-section">Ce que j'ai construit</h2>
+
+          <div class="grille">
+            <article class="carte">
+              <h3>Gestion des thèses et mémoires</h3>
+              <p>
+                Application pour gérer les thèses et mémoires d'un centre de
+                documentation.
+              </p>
+              <ul class="tags">
+                <li>Java</li>
+                <li>MySQL</li>
+                <li>JDBC</li>
+              </ul>
+              <!-- À REMPLACER : le lien GitHub du projet -->
+              <a href="#" class="lien-carte">Voir le projet ↗</a>
+            </article>
+
+            <article class="carte">
+              <h3>Business Management</h3>
+              <p>
+                Application de gestion d'entreprise avec une base de données et
+                des règles métier.
+              </p>
+              <ul class="tags">
+                <li>Oracle</li>
+                <li>APEX</li>
+                <li>PL/SQL</li>
+              </ul>
+              <a href="#" class="lien-carte">Voir le projet ↗</a>
+            </article>
+
+            <article class="carte">
+              <h3>Plateforme de signalement</h3>
+              <p>
+                Conception d'une plateforme pour un environnement universitaire
+                sûr et inclusif.
+              </p>
+              <ul class="tags">
+                <li>UML</li>
+                <li>Génie logiciel</li>
+                <li>Cahier des charges</li>
+              </ul>
+              <a href="#" class="lien-carte">Voir le projet ↗</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PASSIONS : AU-DELÀ DU CODE -->
+      <section class="section" id="passions">
+        <div class="conteneur">
+          <p class="surtitre">03 — Passions</p>
+          <h2 class="titre-section">Au-delà du code</h2>
+
+          <!-- À MODIFIER : présente-toi en quelques mots, hors développement -->
+          <p class="texte-principal">
+            Derrière l'écran, il y a aussi des histoires et des images. Voici ce
+            qui nourrit ma curiosité et ma créativité.
+          </p>
+
+          <!-- BLOC LECTURE -->
+          <div class="bloc">
+            <h3 class="bloc-titre"><span>📖</span> Lecture</h3>
+
+            <!-- À MODIFIER : pourquoi tu aimes lire -->
+            <p class="bloc-texte">
+              Écris ici pourquoi tu aimes lire et ce que la lecture t'apporte.
+            </p>
+
+            <div class="livres">
+              <!-- À MODIFIER : un livre que tu as aimé. Copie ce bloc pour en ajouter. -->
+              <article class="livre">
+                <div class="livre-dos"></div>
+                <div>
+                  <h4>Titre du livre</h4>
+                  <p class="auteur">Auteur</p>
+                  <p>Ce que ce livre t'a apporté, en une phrase.</p>
+                </div>
+              </article>
+
+              <article class="livre">
+                <div class="livre-dos"></div>
+                <div>
+                  <h4>Titre du livre</h4>
+                  <p class="auteur">Auteur</p>
+                  <p>Ce que ce livre t'a apporté, en une phrase.</p>
+                </div>
+              </article>
+
+              <article class="livre">
+                <div class="livre-dos"></div>
+                <div>
+                  <h4>Titre du livre</h4>
+                  <p class="auteur">Auteur</p>
+                  <p>Ce que ce livre t'a apporté, en une phrase.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- BLOC PHOTOGRAPHIE -->
+          <div class="bloc">
+            <h3 class="bloc-titre"><span>📸</span> Photographie</h3>
+
+            <!-- À MODIFIER : ton regard sur la photo -->
+            <p class="bloc-texte">
+              Pas besoin d'un gros appareil : mon téléphone et un regard attentif
+              suffisent pour garder les petits instants qui me touchent.
+            </p>
+
+            <div class="galerie">
+              <!--
+                Quand tu auras ta photo, remplace la ligne <div class="photo-vide">...</div>
+                par : <img src="images/photo-1.jpg" alt="Décris la photo" loading="lazy" />
+              -->
+              <figure class="photo">
+                <div class="photo-vide">📸</div>
+                <figcaption>Titre de la photo</figcaption>
+              </figure>
+
+              <figure class="photo">
+                <div class="photo-vide">📸</div>
+                <figcaption>Titre de la photo</figcaption>
+              </figure>
+
+              <figure class="photo">
+                <div class="photo-vide">📸</div>
+                <figcaption>Titre de la photo</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact">
+        <div class="conteneur">
+          <p class="surtitre">04 — Contact</p>
+          <h2 class="titre-section">Discutons</h2>
+          <p class="texte-principal">
+            Une idée, une opportunité, une question ? Écris-moi, je réponds avec
+            plaisir.
+          </p>
+
+          <!-- À REMPLACER : ton vrai email (deux fois) -->
+          <a href="mailto:ton-email@exemple.com" class="email">
+            ton-email@exemple.com
+          </a>
+
+          <div class="boutons">
+            <a
+              href="https://github.com/Sokhna-Astou"
+              class="bouton bouton-contour"
+              target="_blank"
+              rel="noopener"
+              >GitHub ↗</a
+            >
+            <!-- À REMPLACER : ton lien LinkedIn quand ton compte sera créé -->
+            <a
+              href="#"
+              class="bouton bouton-contour"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn ↗</a
+            >
+          </div>
+        </div>
+      </section>
     </main>
+
+    <footer class="pied">
+      <p>© 2026 Sokhna Astou Diagne · Fait avec ✿</p>
+    </footer>
 
     <script src="script.js"></script>
   </body>
-</html>
