@@ -7,20 +7,119 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@500;600&family=Pinyon+Script&family=DM+Sans:wght@400;500&family=Space+Mono&display=swap"
-      rel="stylesheet"
-    />
+   <link
+  href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600&family=Pinyon+Script&family=DM+Sans:wght@400;500&family=Space+Mono&display=swap"
+  rel="stylesheet"
+/>
 
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+  <!-- ÉCRAN D'INTRO -->
+<div class="intro" id="intro">
+  <!-- La fée -->
+  <div class="intro-fee" id="intro-fee" aria-hidden="true">
+    <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-aile" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffd6e0" stop-opacity="0.75" />
+          <stop offset="1" stop-color="#cdb4db" stop-opacity="0.25" />
+        </linearGradient>
+        <linearGradient id="g-robe" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffd6e0" />
+          <stop offset="1" stop-color="#cdb4db" stop-opacity="0.85" />
+        </linearGradient>
+        <radialGradient id="g-lueur">
+          <stop offset="0" stop-color="#fff6d8" />
+          <stop offset="1" stop-color="#f2d7a0" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <!-- Ailes fines, comme celles d'une libellule -->
+      <g class="aile aile-g">
+        <ellipse cx="36" cy="31" rx="29" ry="7.5" transform="rotate(40.8 36 31)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
+        <ellipse cx="40" cy="64" rx="23" ry="6" transform="rotate(-37.9 40 64)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
+      </g>
+      <g class="aile aile-d">
+        <ellipse cx="84" cy="31" rx="29" ry="7.5" transform="rotate(-40.8 84 31)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
+        <ellipse cx="80" cy="64" rx="23" ry="6" transform="rotate(37.9 80 64)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
+      </g>
+
+      <!-- Jambes (cachées en partie par la robe) -->
+      <path d="M57 116 C56 124 58 130 57 137" fill="none" stroke="#8b5a3c" stroke-width="3.2" stroke-linecap="round" />
+      <path d="M63 116 C66 123 65 130 67 136" fill="none" stroke="#8b5a3c" stroke-width="3.2" stroke-linecap="round" />
+
+      <!-- Robe longue et fluide -->
+      <path d="M53 62 C46 84 40 102 30 124 C44 114 62 116 80 126 C74 104 69 82 67 62 Z" fill="url(#g-robe)" opacity="0.95" />
+      <path d="M56 63 C52 90 54 110 60 134 C76 112 82 92 66 63 Z" fill="#fff0f5" opacity="0.25" />
+
+      <!-- Buste : épaules, puis haut de robe -->
+      <path d="M51 49 C55 45.5 65 45.5 69 49 L68 53 L52 53 Z" fill="#8b5a3c" />
+      <path d="M52 52 L68 52 L67 63 C63 65 57 65 53 63 Z" fill="url(#g-robe)" />
+
+      <!-- Bras -->
+      <path d="M52 50 C45 57 41 65 40 74" fill="none" stroke="#8b5a3c" stroke-width="3.6" stroke-linecap="round" />
+      <path d="M68 50 C76 49 83 45 89 38" fill="none" stroke="#8b5a3c" stroke-width="3.6" stroke-linecap="round" />
+
+      <!-- Petite lueur dans sa main -->
+      <circle cx="91" cy="35" r="9" fill="url(#g-lueur)" />
+      <circle cx="91" cy="35" r="2.6" fill="#fff6d8" />
+
+      <!-- Cou, cheveux (chignon bouffant) et tête -->
+      <path d="M57.8 40 h4.4 v7 h-4.4 z" fill="#8b5a3c" />
+      <circle cx="60" cy="25" r="11" fill="#2b1b24" />
+      <circle cx="60" cy="34" r="7.5" fill="#8b5a3c" />
+    </svg>
+  </div>
+
+  <div class="intro-contenu">
+    <p class="intro-label" id="intro-label">&nbsp;</p>
+
+    <p class="intro-compteur" id="intro-compteur">
+      <span>0</span><span>0</span><span>0</span>
+    </p>
+
+    <p class="intro-coord">14.69°N · 17.44°W · Dakar</p>
+    <p class="intro-passer">Cliquez ou appuyez sur une touche pour passer</p>
+  </div>
+</div>
+
+  <div class="intro-centre">
+    <p class="intro-decode" id="intro-decode"></p>
+    <p class="intro-compteur" id="intro-compteur">5</p>
+  </div>
+
+  <button class="intro-passer" id="intro-passer" type="button">Passer ›</button>
+</div>
     <!-- Les pétales qui tombent (remplis par script.js) -->
     <div class="petales" aria-hidden="true"></div>
 
     <!-- MENU -->
     <header class="menu">
-      <a href="#accueil" class="logo">Astou <span>✿</span></a>
+     <a href="#accueil" class="logo" aria-label="Retour à l'accueil">
+  <svg class="logo-embleme" viewBox="0 0 40 40" aria-hidden="true">
+    <defs>
+      <linearGradient id="g-petale" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffd6e0" />
+        <stop offset="1" stop-color="#ffb7c5" />
+      </linearGradient>
+      <path
+        id="petale-logo"
+        d="M20 20 C15 15 14 8 17.5 5.5 C18.8 4.6 19.6 5.2 20 6.2 C20.4 5.2 21.2 4.6 22.5 5.5 C26 8 25 15 20 20 Z"
+      />
+    </defs>
+    <circle cx="20" cy="20" r="18.5" fill="none" stroke="#ffb7c5" stroke-opacity="0.55" stroke-width="1" />
+    <g fill="url(#g-petale)">
+      <use href="#petale-logo" />
+      <use href="#petale-logo" transform="rotate(72 20 20)" />
+      <use href="#petale-logo" transform="rotate(144 20 20)" />
+      <use href="#petale-logo" transform="rotate(216 20 20)" />
+      <use href="#petale-logo" transform="rotate(288 20 20)" />
+    </g>
+    <circle cx="20" cy="20" r="1.8" fill="#f2d7a0" />
+  </svg>
+  <span class="logo-texte">SADDY</span>
+</a>
       <nav>
         <a href="#apropos">À propos</a>
         <a href="#projets">Projets</a>
@@ -45,7 +144,7 @@
           <span class="trait"></span>
         </div>
 
-        <p class="intro">
+        <p class="presentation">
           Étudiante en L3 MIAGE à l'Université Gaston Berger de Saint&#8209;Louis.
         </p>
 
@@ -236,8 +335,8 @@
           </p>
 
           <!-- À REMPLACER : ton vrai email (deux fois) -->
-          <a href="mailto:ton-email@exemple.com" class="email">
-            ton-email@exemple.com
+          <a href="mailto:binthussein2801@gmail.com" class="email">
+            binthussein2801@gmail.com
           </a>
 
           <div class="boutons">
