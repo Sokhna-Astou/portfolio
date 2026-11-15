@@ -120,3 +120,51 @@ body {
   color: var(--rose-doux);
   text-wrap: balance;
 }
+/* ---------- Pétales qui tombent ---------- */
+.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.petales {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.petale {
+  position: absolute;
+  top: -10vh;
+  background: linear-gradient(135deg, var(--rose-doux), var(--petale));
+  border-radius: 150% 0 150% 0;
+  opacity: 0.8;
+  animation-name: chute;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes chute {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(var(--balancement), 55vh) rotate(180deg);
+  }
+  100% {
+    transform: translate(calc(var(--balancement) * -1), 110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Pour les personnes qui préfèrent éviter les animations */
+@media (prefers-reduced-motion: reduce) {
+  .petales {
+    display: none;
+  }
+}
