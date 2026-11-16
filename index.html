@@ -35,7 +35,6 @@
             </radialGradient>
           </defs>
 
-          <!-- Ailes fines, comme celles d'une libellule -->
           <g class="aile aile-g">
             <ellipse cx="36" cy="31" rx="29" ry="7.5" transform="rotate(40.8 36 31)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
             <ellipse cx="40" cy="64" rx="23" ry="6" transform="rotate(-37.9 40 64)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
@@ -45,27 +44,21 @@
             <ellipse cx="80" cy="64" rx="23" ry="6" transform="rotate(37.9 80 64)" fill="url(#g-aile)" stroke="#ffd6e0" stroke-opacity="0.6" stroke-width="0.6" />
           </g>
 
-          <!-- Jambes (cachées en partie par la robe) -->
           <path d="M57 116 C56 124 58 130 57 137" fill="none" stroke="#8b5a3c" stroke-width="3.2" stroke-linecap="round" />
           <path d="M63 116 C66 123 65 130 67 136" fill="none" stroke="#8b5a3c" stroke-width="3.2" stroke-linecap="round" />
 
-          <!-- Robe longue et fluide -->
           <path d="M53 62 C46 84 40 102 30 124 C44 114 62 116 80 126 C74 104 69 82 67 62 Z" fill="url(#g-robe)" opacity="0.95" />
           <path d="M56 63 C52 90 54 110 60 134 C76 112 82 92 66 63 Z" fill="#fff0f5" opacity="0.25" />
 
-          <!-- Buste : épaules, puis haut de robe -->
           <path d="M51 49 C55 45.5 65 45.5 69 49 L68 53 L52 53 Z" fill="#8b5a3c" />
           <path d="M52 52 L68 52 L67 63 C63 65 57 65 53 63 Z" fill="url(#g-robe)" />
 
-          <!-- Bras -->
           <path d="M52 50 C45 57 41 65 40 74" fill="none" stroke="#8b5a3c" stroke-width="3.6" stroke-linecap="round" />
           <path d="M68 50 C76 49 83 45 89 38" fill="none" stroke="#8b5a3c" stroke-width="3.6" stroke-linecap="round" />
 
-          <!-- Petite lueur dans sa main -->
           <circle cx="91" cy="35" r="9" fill="url(#g-lueur)" />
           <circle cx="91" cy="35" r="2.6" fill="#fff6d8" />
 
-          <!-- Cou, cheveux (chignon bouffant) et tête -->
           <path d="M57.8 40 h4.4 v7 h-4.4 z" fill="#8b5a3c" />
           <circle cx="60" cy="25" r="11" fill="#2b1b24" />
           <circle cx="60" cy="34" r="7.5" fill="#8b5a3c" />
@@ -84,7 +77,13 @@
       </div>
     </div>
 
-    <!-- Les pétales qui tombent (remplis par script.js) -->
+    <!-- LE CIEL : change avec le défilement (géré par script.js) -->
+    <div class="ciel" id="ciel" aria-hidden="true">
+      <div class="soleil"></div>
+      <div class="ciel-etoiles" id="ciel-etoiles"></div>
+    </div>
+
+    <!-- Les pétales qui tombent sur toute la page (remplis par script.js) -->
     <div class="petales" aria-hidden="true"></div>
 
     <!-- MENU -->
@@ -124,27 +123,282 @@
     <main>
       <!-- ACCUEIL -->
       <section class="hero" id="accueil">
-        <p class="etiquette">Étudiante · Développeuse · Créatrice</p>
+        <div class="hero-texte">
+          <p class="etiquette">Étudiante · Développeuse · Créatrice</p>
 
-        <h1 class="nom">
-          <span class="prenom">Sokhna Astou</span>
-          <span class="nom-famille">Diagne</span>
-        </h1>
+          <h1 class="nom">
+            <span class="prenom">Sokhna Astou</span>
+            <span class="nom-famille">Diagne</span>
+          </h1>
 
-        <div class="ornement" aria-hidden="true">
-          <span class="trait"></span>
-          <span class="fleur">✿</span>
-          <span class="trait"></span>
+          <div class="ornement" aria-hidden="true">
+            <span class="trait"></span>
+            <span class="fleur">✿</span>
+            <span class="trait"></span>
+          </div>
+
+          <p class="presentation">
+            Étudiante en L3 MIAGE à l'Université Gaston Berger de Saint&#8209;Louis.
+          </p>
+
+          <div class="boutons">
+            <a href="#contact" class="bouton">Discutons</a>
+            <!-- À REMPLACER : le lien vers ton CV en PDF -->
+            <a href="#" class="bouton bouton-contour">Télécharger mon CV</a>
+          </div>
         </div>
 
-        <p class="presentation">
-          Étudiante en L3 MIAGE à l'Université Gaston Berger de Saint&#8209;Louis.
-        </p>
+        <!-- LA SCÈNE : cerisier à droite, bibliothèque et setup gaming à gauche -->
+        <div class="scene" id="scene" aria-hidden="true">
+          <svg id="scene-svg" viewBox="0 0 1600 1250" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sc-ecorce" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#6f4d63" />
+                <stop offset="0.55" stop-color="#5a3d4f" />
+                <stop offset="1" stop-color="#3f2a3c" />
+              </linearGradient>
+              <linearGradient id="sc-sol" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+                <stop offset="0" stop-color="#ffb7c5" stop-opacity="0.1" />
+                <stop offset="0.5" stop-color="#ffb7c5" stop-opacity="0.55" />
+                <stop offset="1" stop-color="#ffb7c5" stop-opacity="0.1" />
+              </linearGradient>
+              <linearGradient id="sc-ombre" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#120c1c" stop-opacity="0.35" />
+                <stop offset="1" stop-color="#120c1c" stop-opacity="0.9" />
+              </linearGradient>
+              <radialGradient id="sc-lueur">
+                <stop offset="0" stop-color="#ffd6e0" stop-opacity="0.35" />
+                <stop offset="1" stop-color="#ffd6e0" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="sc-led" gradientUnits="userSpaceOnUse" x1="330" y1="0" x2="800" y2="0">
+                <stop offset="0" stop-color="#ffb7c5" />
+                <stop offset="0.5" stop-color="#cdb4db" />
+                <stop offset="1" stop-color="#ffb7c5" />
+              </linearGradient>
+              <linearGradient id="sc-ecran-mode" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffb7c5" />
+                <stop offset="1" stop-color="#cdb4db" />
+              </linearGradient>
+              <pattern id="sc-touches" width="7" height="5" patternUnits="userSpaceOnUse">
+                <rect x="0.7" y="0.6" width="5.4" height="3.4" rx="1" fill="#efe0e5" />
+              </pattern>
+              <pattern id="sc-rayures" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect width="8" height="8" fill="#fff0f5" />
+                <rect width="4" height="8" fill="#ffd6e0" />
+              </pattern>
+            </defs>
 
-        <div class="boutons">
-          <a href="#contact" class="bouton">Discutons</a>
-          <!-- À REMPLACER : le lien vers ton CV en PDF -->
-          <a href="#" class="bouton bouton-contour">Télécharger mon CV</a>
+            <!-- Le sol -->
+            <rect x="0" y="1190" width="1600" height="60" fill="url(#sc-ombre)" />
+            <line x1="0" y1="1190" x2="1600" y2="1190" stroke="url(#sc-sol)" stroke-width="2" />
+
+            <!-- Le cerisier : racines, tronc, branches (remplis par script.js) -->
+            <g id="arbre"></g>
+            <!-- Le plafond de fleurs (rempli par script.js) -->
+            <g id="canopee"></g>
+
+            <!-- ====== CÔTÉ GAUCHE : LES OBJETS ====== -->
+
+            <!-- Lueur des écrans sur le mur -->
+            <ellipse cx="565" cy="905" rx="340" ry="135" fill="url(#sc-lueur)" />
+            <ellipse cx="560" cy="1190" rx="270" ry="14" fill="url(#sc-led)" opacity="0.14" />
+
+            <!-- La tour du PC, sous le bureau -->
+            <g id="tour">
+              <rect x="385" y="1032" width="72" height="158" rx="6" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="393" y="1042" width="56" height="138" rx="3" fill="#2b1b3d" />
+              <circle cx="421" cy="1076" r="20" fill="url(#sc-lueur)" />
+              <circle cx="421" cy="1076" r="14" fill="none" stroke="#ffb7c5" stroke-width="2.5" />
+              <circle cx="421" cy="1076" r="4" fill="#ffd6e0" />
+              <circle cx="421" cy="1112" r="20" fill="url(#sc-lueur)" />
+              <circle cx="421" cy="1112" r="14" fill="none" stroke="#cdb4db" stroke-width="2.5" />
+              <circle cx="421" cy="1112" r="4" fill="#e5d4ee" />
+              <circle cx="421" cy="1148" r="20" fill="url(#sc-lueur)" />
+              <circle cx="421" cy="1148" r="14" fill="none" stroke="#ffb7c5" stroke-width="2.5" />
+              <circle cx="421" cy="1148" r="4" fill="#ffd6e0" />
+              <rect x="393" y="1042" width="3" height="138" fill="url(#sc-led)" />
+            </g>
+
+            <!-- Le bureau blanc, avec sa LED rose et lavande -->
+            <g id="bureau">
+              <rect x="345" y="1002" width="14" height="188" fill="#f3e6ea" />
+              <rect x="771" y="1002" width="14" height="188" fill="#f3e6ea" />
+              <line x1="335" y1="1005" x2="795" y2="1005" stroke="url(#sc-led)" stroke-width="12" opacity="0.1" />
+              <line x1="335" y1="1005" x2="795" y2="1005" stroke="url(#sc-led)" stroke-width="7" opacity="0.2" />
+              <line x1="335" y1="1005" x2="795" y2="1005" stroke="url(#sc-led)" stroke-width="2.5" opacity="0.95" />
+              <rect x="330" y="985" width="470" height="17" rx="4" fill="#fff8f4" />
+              <rect x="330" y="985" width="470" height="2" rx="1" fill="#ffd6e0" opacity="0.7" />
+              <rect x="478" y="966" width="205" height="19" rx="5" fill="#cdb4db" opacity="0.4" />
+            </g>
+
+            <!-- ÉCRAN DE GAUCHE : le code d'une tenue -->
+            <g id="ecran-code">
+              <rect x="399" y="958" width="12" height="22" fill="#f3e6ea" />
+              <rect x="380" y="978" width="50" height="7" rx="3" fill="#fff8f4" />
+              <rect x="345" y="868" width="120" height="90" rx="6" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="350" y="873" width="110" height="80" rx="3" fill="#1f1633" />
+              <circle cx="356" cy="879" r="1.5" fill="#ffb7c5" />
+              <circle cx="361" cy="879" r="1.5" fill="#f2d7a0" />
+              <circle cx="366" cy="879" r="1.5" fill="#cdb4db" />
+              <text x="374" y="881" font-family="'Space Mono', monospace" font-size="5.2" fill="#cdb4db">tenue.js</text>
+
+              <g font-family="'Space Mono', monospace" font-size="6.2">
+                <text x="357" y="892" text-anchor="end" fill="#6b5a85">1</text>
+                <text x="357" y="900.3" text-anchor="end" fill="#6b5a85">2</text>
+                <text x="357" y="908.6" text-anchor="end" fill="#6b5a85">3</text>
+                <text x="357" y="916.9" text-anchor="end" fill="#6b5a85">4</text>
+                <text x="357" y="925.2" text-anchor="end" fill="#6b5a85">5</text>
+                <text x="357" y="933.5" text-anchor="end" fill="#6b5a85">6</text>
+
+                <text x="361" y="892"><tspan fill="#ffb7c5">const</tspan> <tspan fill="#fff0f5">tenue</tspan> <tspan fill="#cdb4db">= {</tspan></text>
+                <text x="361" y="900.3"><tspan dx="8" fill="#cdb4db">robe:</tspan> <tspan fill="#f2d7a0">"rose"</tspan><tspan fill="#cdb4db">,</tspan></text>
+                <text x="361" y="908.6"><tspan dx="8" fill="#cdb4db">tissu:</tspan> <tspan fill="#f2d7a0">"soie"</tspan><tspan fill="#cdb4db">,</tspan></text>
+                <text x="361" y="916.9"><tspan dx="8" fill="#cdb4db">code:</tspan> <tspan fill="#ffb7c5">true</tspan><tspan fill="#cdb4db">,</tspan></text>
+                <text x="361" y="925.2" fill="#cdb4db">};</text>
+                <text x="361" y="933.5"><tspan fill="#ffd6e0">habiller</tspan><tspan fill="#cdb4db">(</tspan><tspan fill="#fff0f5">tenue</tspan><tspan fill="#cdb4db">);</tspan></text>
+              </g>
+              <rect class="curseur" x="423" y="928" width="3" height="7" fill="#ffd6e0" />
+            </g>
+
+            <!-- ÉCRAN DU CENTRE : le dressing virtuel -->
+            <g id="ecran-mode">
+              <rect x="559" y="958" width="12" height="22" fill="#f3e6ea" />
+              <rect x="538" y="978" width="54" height="7" rx="3" fill="#fff8f4" />
+              <rect x="475" y="833" width="180" height="125" rx="7" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="480" y="838" width="170" height="115" rx="3" fill="#fffaf7" />
+
+              <rect x="480" y="838" width="170" height="13" fill="#fff0f5" />
+              <text x="490" y="847.5" font-family="'Bodoni Moda', serif" font-size="7" letter-spacing="1.5" fill="#5a3d4f">ATELIER</text>
+              <rect x="624" y="842" width="16" height="1" fill="#cdb4db" />
+              <rect x="624" y="845" width="16" height="1" fill="#cdb4db" />
+              <rect x="624" y="848" width="16" height="1" fill="#cdb4db" />
+
+              <!-- Le mannequin et sa robe -->
+              <rect x="485" y="856" width="72" height="92" rx="3" fill="url(#sc-ecran-mode)" />
+              <ellipse cx="521" cy="946" rx="26" ry="2.5" fill="#ffffff" opacity="0.35" />
+              <circle cx="521" cy="868" r="4.2" fill="#fff0f5" />
+              <rect x="519.5" y="871.5" width="3" height="4" fill="#fff0f5" />
+              <path d="M515 876 H527 L526 892 C536 906 542 926 546 943 H496 C500 926 506 906 516 892 Z" fill="#fff8f4" />
+              <rect x="516" y="890" width="10" height="2.4" fill="#f2d7a0" />
+              <path d="M504 925 Q521 932 538 925" fill="none" stroke="#ffb7c5" stroke-width="0.9" opacity="0.8" />
+              <path d="M500 936 Q521 944 542 936" fill="none" stroke="#ffb7c5" stroke-width="0.9" opacity="0.8" />
+
+              <!-- Couleurs, tenues et bouton -->
+              <text x="565" y="862" font-family="'Bodoni Moda', serif" font-size="6.4" fill="#5a3d4f">Ma tenue</text>
+              <circle cx="568" cy="872" r="3.6" fill="#ffb7c5" stroke="#5a3d4f" stroke-width="0.8" />
+              <circle cx="578" cy="872" r="3.6" fill="#cdb4db" />
+              <circle cx="588" cy="872" r="3.6" fill="#fff0f5" stroke="#ffd6e0" stroke-width="0.8" />
+              <circle cx="598" cy="872" r="3.6" fill="#f2d7a0" />
+              <circle cx="608" cy="872" r="3.6" fill="#e8a0b4" />
+
+              <rect x="565" y="882" width="38" height="26" rx="2" fill="#ffd6e0" />
+              <rect x="607" y="882" width="38" height="26" rx="2" fill="#e5d4ee" />
+              <rect x="565" y="912" width="38" height="26" rx="2" fill="#ffe4ec" />
+              <rect x="607" y="912" width="38" height="26" rx="2" fill="#ffd0dc" />
+              <path d="M584 885 L590 903 H578 Z" fill="#fff8f4" />
+              <path d="M626 885 L632 903 H620 Z" fill="#fff8f4" />
+              <path d="M584 915 L590 933 H578 Z" fill="#fff8f4" />
+              <path d="M626 915 L632 933 H620 Z" fill="#fff8f4" />
+
+              <rect x="565" y="942" width="80" height="9" rx="4.5" fill="#ffb7c5" />
+              <text x="605" y="948.6" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="5.2" letter-spacing="1" fill="#ffffff">ESSAYER</text>
+            </g>
+
+            <!-- ÉCRAN DE DROITE : la palette de couleurs -->
+            <g id="ecran-palette">
+              <rect x="719" y="958" width="12" height="22" fill="#f3e6ea" />
+              <rect x="700" y="978" width="50" height="7" rx="3" fill="#fff8f4" />
+              <rect x="665" y="868" width="120" height="90" rx="6" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="670" y="873" width="110" height="80" rx="3" fill="#fffaf7" />
+              <text x="676" y="884" font-family="'Bodoni Moda', serif" font-size="7" fill="#5a3d4f">Palette</text>
+
+              <rect x="675" y="891" width="22" height="26" rx="3" fill="#ffb7c5" />
+              <rect x="702" y="891" width="22" height="26" rx="3" fill="#cdb4db" />
+              <rect x="729" y="891" width="22" height="26" rx="3" fill="#ffd6e0" />
+              <rect x="756" y="891" width="22" height="26" rx="3" fill="#f2d7a0" />
+              <g font-family="'Space Mono', monospace" font-size="4.4" fill="#5a3d4f" text-anchor="middle">
+                <text x="686" y="924">FFB7C5</text>
+                <text x="713" y="924">CDB4DB</text>
+                <text x="740" y="924">FFD6E0</text>
+                <text x="767" y="924">F2D7A0</text>
+              </g>
+              <rect x="675" y="931" width="103" height="14" rx="3" fill="url(#sc-rayures)" />
+            </g>
+
+            <!-- Le casque, posé sur l'écran de gauche -->
+            <g id="casque">
+              <path d="M342 878 C340 842 470 842 468 878" fill="none" stroke="#fff8f4" stroke-width="5" stroke-linecap="round" />
+              <circle cx="342" cy="886" r="9" fill="#fff8f4" stroke="#ffb7c5" stroke-width="2" />
+              <circle cx="342" cy="886" r="4" fill="#ffd6e0" />
+              <circle cx="468" cy="886" r="9" fill="#fff8f4" stroke="#ffb7c5" stroke-width="2" />
+              <circle cx="468" cy="886" r="4" fill="#ffd6e0" />
+            </g>
+
+            <!-- Clavier, souris, tasse -->
+            <g id="accessoires">
+              <rect x="505" y="970" width="120" height="12" rx="3" fill="#fff8f4" stroke="#ffd6e0" stroke-width="0.6" />
+              <rect x="507" y="972" width="116" height="8" fill="url(#sc-touches)" />
+              <line x1="505" y1="984" x2="625" y2="984" stroke="url(#sc-led)" stroke-width="8" opacity="0.15" />
+              <rect x="503" y="982" width="124" height="2.5" rx="1.2" fill="url(#sc-led)" />
+
+              <ellipse cx="652" cy="977" rx="8" ry="5.5" fill="#fff8f4" stroke="#ffd6e0" stroke-width="0.6" />
+              <circle cx="652" cy="973" r="1.2" fill="#ffb7c5" />
+
+              <path d="M686 957 C683 951 689 947 686 941" class="vapeur" fill="none" stroke="#fff0f5" stroke-width="1.4" stroke-linecap="round" />
+              <path d="M692 959 C689 953 695 949 692 943" class="vapeur vapeur-2" fill="none" stroke="#fff0f5" stroke-width="1.4" stroke-linecap="round" />
+              <rect x="682" y="964" width="14" height="21" rx="4" fill="#fff8f4" />
+              <path d="M696 968 C702 968 702 979 696 979" fill="none" stroke="#fff8f4" stroke-width="2" stroke-linecap="round" />
+            </g>
+
+            <!-- La chaise gaming blanche, tirée à droite du bureau -->
+            <g id="chaise">
+              <rect x="842" y="1062" width="7" height="90" fill="#e8dce0" />
+              <line x1="845" y1="1152" x2="802" y2="1180" stroke="#e8dce0" stroke-width="5" stroke-linecap="round" />
+              <line x1="845" y1="1152" x2="890" y2="1180" stroke="#e8dce0" stroke-width="5" stroke-linecap="round" />
+              <line x1="845" y1="1152" x2="845" y2="1182" stroke="#e8dce0" stroke-width="5" stroke-linecap="round" />
+              <circle cx="802" cy="1183" r="5" fill="#cdb4db" />
+              <circle cx="845" cy="1185" r="5" fill="#cdb4db" />
+              <circle cx="890" cy="1183" r="5" fill="#cdb4db" />
+              <rect x="812" y="1040" width="76" height="24" rx="12" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="842" y="902" width="52" height="144" rx="24" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="852" y="900" width="32" height="26" rx="12" fill="#ffd6e0" />
+              <path d="M850 940 C848 980 848 1010 852 1034" fill="none" stroke="#ffb7c5" stroke-width="1.6" stroke-dasharray="4 3" />
+              <path d="M886 940 C888 980 888 1010 884 1034" fill="none" stroke="#ffb7c5" stroke-width="1.6" stroke-dasharray="4 3" />
+              <rect x="816" y="1000" width="34" height="8" rx="4" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+              <rect x="826" y="1008" width="6" height="32" fill="#f3e6ea" />
+            </g>
+
+            <!-- Une petite plante -->
+            <g id="plante">
+              <ellipse cx="970" cy="1098" rx="11" ry="38" transform="rotate(-22 970 1130)" fill="#9db8a5" />
+              <ellipse cx="970" cy="1092" rx="11" ry="42" fill="#8fae9a" />
+              <ellipse cx="970" cy="1098" rx="11" ry="38" transform="rotate(22 970 1130)" fill="#a9c4b0" />
+              <path d="M945 1190 L953 1128 H987 L995 1190 Z" fill="#fff8f4" stroke="#ffd6e0" stroke-width="1" />
+            </g>
+
+            <!-- La bibliothèque en bois prune, pleine de livres -->
+            <g id="bibliotheque">
+              <rect x="24" y="790" width="282" height="12" rx="3" fill="#5a3d4f" />
+              <rect x="30" y="800" width="270" height="390" fill="#4a3345" />
+              <rect x="42" y="812" width="246" height="370" fill="#2b1b3d" />
+              <rect x="30" y="800" width="270" height="2" fill="#ffb7c5" opacity="0.3" />
+
+              <rect x="42" y="880" width="246" height="7" fill="#5a3d4f" />
+              <rect x="42" y="948" width="246" height="7" fill="#5a3d4f" />
+              <rect x="42" y="1016" width="246" height="7" fill="#5a3d4f" />
+              <rect x="42" y="1084" width="246" height="7" fill="#5a3d4f" />
+              <rect x="42" y="1152" width="246" height="7" fill="#5a3d4f" />
+
+              <!-- Les livres (créés par script.js) -->
+              <g id="bibliotheque-livres"></g>
+
+              <rect x="42" y="1159" width="246" height="23" fill="#4a3345" />
+              <line x1="165" y1="1159" x2="165" y2="1182" stroke="#3b2838" stroke-width="2" />
+              <circle cx="158" cy="1170" r="2.5" fill="#f2d7a0" />
+              <circle cx="172" cy="1170" r="2.5" fill="#f2d7a0" />
+              <rect x="24" y="1182" width="282" height="8" fill="#3b2838" />
+            </g>
+          </svg>
         </div>
       </section>
 

@@ -14,25 +14,97 @@
 }
 
 html {
-  scroll-behavior: smooth; /* défilement doux */
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
   font-family: "DM Sans", sans-serif;
   color: var(--texte);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 183, 197, 0.18), transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(205, 180, 219, 0.18), transparent 45%),
-    var(--fond);
-  background-attachment: fixed;
+  background: var(--fond);
 }
 
-/* Le contenu passe au-dessus des pétales */
+/* Le contenu passe au-dessus du ciel et des pétales */
 main,
 .pied {
   position: relative;
   z-index: 1;
+}
+
+/* Un petit ombrage pour que les textes restent lisibles sur le ciel */
+.presentation,
+.texte-principal,
+.bloc-texte,
+.etiquette,
+.surtitre,
+.titre-section,
+.bloc-titre {
+  text-shadow: 0 1px 14px rgba(18, 12, 28, 0.55);
+}
+
+/* ---------- LE CIEL (change avec le défilement) ---------- */
+.ciel {
+  --ciel-haut: rgb(93, 81, 137);
+  --ciel-milieu: rgb(176, 112, 154);
+  --ciel-bas: rgb(240, 181, 154);
+  --soleil-y: 16%;
+  --soleil-couleur: rgb(255, 240, 205);
+  --etoiles: 0;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--ciel-haut) 0%, var(--ciel-milieu) 55%, var(--ciel-bas) 100%);
+}
+
+/* Un voile sombre léger : garde les textes clairs lisibles */
+.ciel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 12, 28, 0.3);
+}
+
+.soleil {
+  position: absolute;
+  left: 46%;
+  top: var(--soleil-y);
+  width: clamp(110px, 15vw, 210px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffbea 0%, var(--soleil-couleur) 45%, transparent 72%);
+}
+
+.soleil::after {
+  content: "";
+  position: absolute;
+  inset: -90%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--soleil-couleur) 0%, transparent 62%);
+  opacity: 0.35;
+}
+
+.ciel-etoiles {
+  position: absolute;
+  inset: 0 0 35% 0;
+  opacity: var(--etoiles);
+}
+
+.etoile {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff0f5;
+  animation: scintiller 3s ease-in-out infinite alternate;
+}
+
+@keyframes scintiller {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ---------- MENU ---------- */
@@ -98,7 +170,6 @@ main,
   color: var(--petale);
 }
 
-/* Petit trait sous le lien actif */
 .menu nav a::after {
   content: "";
   position: absolute;
@@ -115,21 +186,41 @@ main,
   transform: scaleX(1);
 }
 
-/* ---------- ACCUEIL ---------- */
+/* ---------- ACCUEIL : TEXTE À GAUCHE, SCÈNE EN DESSOUS ET À DROITE ---------- */
 .hero {
-  min-height: 100vh;
-  padding: 6rem 1.5rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 12.5; /* même proportion que le dessin de la scène */
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-texte {
+  position: absolute;
+  z-index: 2;
+  left: 5.5%;
+  top: 19%;
+  width: 42%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 1.4rem;
+  align-items: flex-start;
+  gap: clamp(0.7rem, 1.5vw, 1.4rem);
+  text-align: left;
 }
 
 .etiquette {
   font-family: "Space Mono", monospace;
-  font-size: 0.75rem;
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--or);
@@ -146,16 +237,16 @@ main,
 .nom {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.4rem;
 }
 
 .prenom {
   font-family: "Pinyon Script", cursive;
   font-weight: 400;
-  font-size: clamp(3.5rem, 12vw, 8rem);
+  font-size: clamp(2.6rem, 5.6vw, 6rem);
   line-height: 1.2;
-  padding: 0 0.2em;
+  padding: 0 0.2em 0 0.05em;
   background: linear-gradient(90deg, var(--rose-doux), var(--petale), var(--lavande));
   -webkit-background-clip: text;
   background-clip: text;
@@ -166,9 +257,8 @@ main,
 .nom-famille {
   font-family: "Bodoni Moda", serif;
   font-weight: 600;
-  font-size: clamp(2.6rem, 9.5vw, 6.5rem);
+  font-size: clamp(1.9rem, 4.4vw, 4.8rem);
   letter-spacing: 0.14em;
-  padding-left: 0.14em;
   text-transform: uppercase;
   background: linear-gradient(180deg, rgba(255, 183, 197, 0.3), rgba(205, 180, 219, 0.05));
   -webkit-background-clip: text;
@@ -182,7 +272,7 @@ main,
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: min(90%, 420px);
+  width: clamp(180px, 24vw, 360px);
 }
 
 .trait {
@@ -204,11 +294,112 @@ main,
 }
 
 .presentation {
-  max-width: 34rem;
-  font-size: 1.15rem;
+  max-width: 30rem;
+  font-size: clamp(0.85rem, 1.3vw, 1.15rem);
   line-height: 1.7;
   color: var(--rose-doux);
   text-wrap: balance;
+}
+
+.hero .boutons {
+  justify-content: flex-start;
+  margin-top: 0;
+}
+
+.hero .bouton {
+  padding: clamp(0.55rem, 0.9vw, 0.85rem) clamp(1rem, 1.8vw, 1.8rem);
+  font-size: clamp(0.8rem, 1.05vw, 0.95rem);
+}
+
+/* ---------- LA SCÈNE : ANIMATIONS ---------- */
+.branche-balance {
+  animation: balancer 7s ease-in-out infinite alternate;
+}
+
+@keyframes balancer {
+  from {
+    transform: rotate(calc(var(--amplitude) * -1));
+  }
+  to {
+    transform: rotate(var(--amplitude));
+  }
+}
+
+.petale-arbre {
+  position: absolute;
+  background: linear-gradient(135deg, var(--rose-doux), var(--petale));
+  border-radius: 150% 0 150% 0;
+  pointer-events: none;
+  animation-name: tomber, tournoyer;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: normal, alternate;
+}
+
+@keyframes tomber {
+  0% {
+    top: var(--depart);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 95%;
+    opacity: 0;
+  }
+}
+
+@keyframes tournoyer {
+  from {
+    transform: translateX(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(var(--derive)) rotate(200deg);
+  }
+}
+
+.vapeur {
+  animation: vapeur 3.2s ease-in-out infinite;
+}
+
+.vapeur-2 {
+  animation-delay: 1.4s;
+}
+
+@keyframes vapeur {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  40% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.curseur {
+  animation: clignoter 1s steps(2) infinite;
+}
+
+@keyframes clignoter {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Quand l'accueil n'est plus à l'écran, tout s'arrête (économie de batterie) */
+.scene.en-pause .branche-balance,
+.scene.en-pause .petale-arbre,
+.scene.en-pause .vapeur,
+.scene.en-pause .curseur {
+  animation-play-state: paused;
 }
 
 /* ---------- BOUTONS ---------- */
@@ -279,14 +470,24 @@ main,
   font-size: 1.15rem;
   line-height: 1.8;
   margin-bottom: 2.5rem;
-  color: rgba(255, 240, 245, 0.9);
+  color: rgba(255, 240, 245, 0.92);
 }
 
-/* ---------- CARTES ---------- */
+/* ---------- CARTES (fond sombre pour rester lisibles sur le ciel) ---------- */
 .grille {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
+}
+
+.carte,
+.livre,
+.photo {
+  background:
+    linear-gradient(180deg, rgba(255, 183, 197, 0.1), rgba(205, 180, 219, 0.04)),
+    rgba(26, 18, 38, 0.45);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 183, 197, 0.22);
 }
 
 .carte {
@@ -295,8 +496,6 @@ main,
   gap: 0.8rem;
   padding: 1.6rem;
   border-radius: 1.2rem;
-  background: linear-gradient(180deg, rgba(255, 183, 197, 0.09), rgba(205, 180, 219, 0.03));
-  border: 1px solid rgba(255, 183, 197, 0.2);
   transition: transform 0.3s, border-color 0.3s;
 }
 
@@ -314,7 +513,7 @@ main,
 
 .carte p {
   line-height: 1.6;
-  color: rgba(255, 240, 245, 0.85);
+  color: rgba(255, 240, 245, 0.88);
 }
 
 .tags {
@@ -353,6 +552,7 @@ main,
   color: var(--petale);
   text-decoration: none;
   word-break: break-all;
+  text-shadow: 0 1px 14px rgba(18, 12, 28, 0.55);
 }
 
 .email:hover {
@@ -368,11 +568,11 @@ main,
   padding: 2rem 1.5rem;
   text-align: center;
   font-size: 0.85rem;
-  color: rgba(255, 240, 245, 0.6);
+  color: rgba(255, 240, 245, 0.7);
   border-top: 1px solid rgba(255, 183, 197, 0.12);
 }
 
-/* ---------- PÉTALES QUI TOMBENT ---------- */
+/* ---------- PÉTALES QUI TOMBENT (SUR TOUTE LA PAGE) ---------- */
 .petales {
   position: fixed;
   inset: 0;
@@ -409,30 +609,6 @@ main,
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .petales {
-    display: none;
-  }
-}
-
-/* ---------- TÉLÉPHONE ---------- */
-@media (max-width: 600px) {
-  .menu {
-    padding: 0.8rem 1rem;
-  }
-
-  .menu nav {
-    gap: 1rem;
-  }
-
-  .menu nav a {
-    font-size: 0.85rem;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-  }
-}
 /* ---------- SECTION PASSIONS ---------- */
 .bloc {
   margin-top: 3.5rem;
@@ -453,10 +629,9 @@ main,
   max-width: 40rem;
   margin-bottom: 1.8rem;
   line-height: 1.8;
-  color: rgba(255, 240, 245, 0.88);
+  color: rgba(255, 240, 245, 0.9);
 }
 
-/* --- Livres --- */
 .livres {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -468,8 +643,6 @@ main,
   gap: 1rem;
   padding: 1.2rem;
   border-radius: 1rem;
-  background: linear-gradient(180deg, rgba(255, 183, 197, 0.09), rgba(205, 180, 219, 0.03));
-  border: 1px solid rgba(255, 183, 197, 0.2);
   transition: transform 0.3s, border-color 0.3s;
 }
 
@@ -478,7 +651,6 @@ main,
   border-color: rgba(255, 183, 197, 0.55);
 }
 
-/* Le petit dos de livre rose */
 .livre-dos {
   flex-shrink: 0;
   width: 10px;
@@ -503,10 +675,9 @@ main,
 .livre p {
   font-size: 0.95rem;
   line-height: 1.5;
-  color: rgba(255, 240, 245, 0.85);
+  color: rgba(255, 240, 245, 0.88);
 }
 
-/* --- Galerie photo --- */
 .galerie {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -516,12 +687,9 @@ main,
 .photo {
   padding: 0.6rem;
   border-radius: 1.2rem;
-  background: linear-gradient(180deg, rgba(255, 183, 197, 0.12), rgba(205, 180, 219, 0.05));
-  border: 1px solid rgba(255, 183, 197, 0.25);
   transition: transform 0.4s;
 }
 
-/* Cadres légèrement inclinés, un sur deux dans l'autre sens */
 .photo:nth-child(odd) {
   transform: rotate(-1.5deg);
 }
@@ -561,6 +729,108 @@ main,
   color: var(--or);
 }
 
+.photo.cachee {
+  display: none;
+}
+
+.photo.cliquable {
+  cursor: zoom-in;
+}
+
+.photo.cliquable:focus-visible {
+  outline: 2px solid var(--petale);
+  outline-offset: 4px;
+}
+
+.galerie-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+
+.galerie-actions[hidden] {
+  display: none;
+}
+
+.galerie-actions button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---------- AGRANDISSEMENT DES PHOTOS ---------- */
+body.fige {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(18, 12, 28, 0.94);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-fig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  max-width: min(90vw, 1000px);
+}
+
+.lightbox-fig img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 183, 197, 0.3);
+  box-shadow: 0 0 40px rgba(255, 183, 197, 0.15);
+}
+
+.lightbox-fig figcaption {
+  font-family: "Space Mono", monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: var(--or);
+}
+
+.lightbox-nav,
+.lightbox-fermer {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 183, 197, 0.4);
+  background: rgba(255, 183, 197, 0.08);
+  color: var(--rose-doux);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.lightbox-nav:hover,
+.lightbox-fermer:hover {
+  background: rgba(255, 183, 197, 0.22);
+}
+
+.lightbox-fermer {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  font-size: 1.2rem;
+}
+
 /* ---------- ÉCRAN D'INTRO ---------- */
 body.chargement {
   overflow: hidden;
@@ -573,7 +843,6 @@ body.chargement {
   z-index: 100;
   background: #120c1c;
   cursor: pointer;
-  /* Fondu très doux sur toute la page */
   transition:
     opacity 2s ease 0.5s,
     visibility 0s linear 2.5s;
@@ -595,7 +864,6 @@ body.chargement {
   }
 }
 
-/* Une lueur rose qui s'intensifie avec le compteur */
 .intro::before {
   content: "";
   position: absolute;
@@ -605,7 +873,6 @@ body.chargement {
   pointer-events: none;
 }
 
-/* La fée vole sur tout l'écran, positionnée par JavaScript */
 .intro-fee {
   position: absolute;
   top: 0;
@@ -621,7 +888,6 @@ body.chargement {
   width: 100%;
 }
 
-/* Battement des ailes, en miroir à gauche et à droite */
 .aile {
   transform-origin: 60px 50px;
   animation: battre 0.22s ease-in-out infinite alternate;
@@ -646,7 +912,6 @@ body.chargement {
   }
 }
 
-/* Les textes au centre */
 .intro-contenu {
   position: absolute;
   inset: 0;
@@ -692,7 +957,6 @@ body.chargement {
   color: rgba(255, 240, 245, 0.3);
 }
 
-/* Le grand compteur : chaque chiffre dans une case de largeur fixe */
 .intro-compteur {
   display: flex;
   justify-content: center;
@@ -713,7 +977,6 @@ body.chargement {
   filter: drop-shadow(0 0 22px rgba(255, 183, 197, 0.25));
 }
 
-/* La traîne d'étincelles de la fée */
 .etincelle {
   position: absolute;
   z-index: 1;
@@ -734,21 +997,26 @@ body.chargement {
   }
 }
 
-/* ---------- ACCUEIL : APPARITION APRÈS L'INTRO ---------- */
-.hero > * {
+/* ---------- APPARITIONS ---------- */
+.hero-texte > * {
   animation: monter 1s ease both;
 }
 
+.scene {
+  animation: monter 1.6s ease 0.3s both;
+}
+
 /* Tant que l'intro est là, l'accueil attend */
-body.chargement .hero > * {
+body.chargement .hero-texte > *,
+body.chargement .scene {
   animation-play-state: paused;
 }
 
-.hero > :nth-child(1) { animation-delay: 0.1s; }
-.hero > :nth-child(2) { animation-delay: 0.3s; }
-.hero > :nth-child(3) { animation-delay: 0.6s; }
-.hero > :nth-child(4) { animation-delay: 0.8s; }
-.hero > :nth-child(5) { animation-delay: 1s; }
+.hero-texte > :nth-child(1) { animation-delay: 0.1s; }
+.hero-texte > :nth-child(2) { animation-delay: 0.3s; }
+.hero-texte > :nth-child(3) { animation-delay: 0.6s; }
+.hero-texte > :nth-child(4) { animation-delay: 0.8s; }
+.hero-texte > :nth-child(5) { animation-delay: 1s; }
 
 @keyframes monter {
   from {
@@ -761,13 +1029,10 @@ body.chargement .hero > * {
   }
 }
 
-/* ---------- SECTIONS : APPARITIONS AU DÉFILEMENT ---------- */
-/* Les titres attendent d'être décryptés */
 .attente {
   opacity: 0;
 }
 
-/* Cartes, livres, photos : un fondu très léger */
 .apparait {
   opacity: 0;
   translate: 0 20px;
@@ -783,13 +1048,90 @@ body.chargement .hero > * {
   translate: 0 0;
 }
 
-/* Pour les personnes qui préfèrent éviter les animations */
+/* ---------- TABLETTE ET TÉLÉPHONE ---------- */
+@media (max-width: 900px) {
+  /* La scène passe au-dessus, puis le texte en dessous */
+  .hero {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 4.2rem;
+  }
+
+  .scene {
+    position: relative;
+    inset: auto;
+    order: -1;
+    width: 100%;
+    aspect-ratio: 16 / 12.5;
+  }
+
+  .hero-texte {
+    position: static;
+    width: auto;
+    padding: 1.5rem 1.5rem 3rem;
+  }
+
+  .presentation {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu {
+    padding: 0.8rem 1rem;
+  }
+
+  .menu nav {
+    gap: 1rem;
+  }
+
+  .menu nav a {
+    font-size: 0.85rem;
+  }
+
+  .logo-texte {
+    font-size: 1.05rem;
+  }
+
+  .lightbox {
+    padding-bottom: 5rem;
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    bottom: 1.2rem;
+  }
+
+  .lightbox-prec {
+    left: 1.2rem;
+  }
+
+  .lightbox-suiv {
+    right: 1.2rem;
+  }
+}
+
+/* ---------- POUR CELLES ET CEUX QUI PRÉFÈRENT ÉVITER LES ANIMATIONS ---------- */
 @media (prefers-reduced-motion: reduce) {
   .intro {
     display: none;
   }
 
-  .hero > * {
+  .hero-texte > *,
+  .scene {
+    animation: none;
+  }
+
+  .petales,
+  .petale-arbre {
+    display: none;
+  }
+
+  .branche-balance,
+  .vapeur,
+  .curseur,
+  .etoile {
     animation: none;
   }
 
