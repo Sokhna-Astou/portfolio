@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sokhna Astou Diagne · Portfolio</title>
+        <meta name="description" content="Portfolio de Sokhna Astou Diagne : étudiante en Master 1 MIAGE, développeuse et gestionnaire." />
+    <meta name="theme-color" content="#1a1226" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sokhna Astou Diagne · Portfolio" />
+    <meta property="og:description" content="Étudiante en Master 1 MIAGE, développeuse et gestionnaire. Découvrez mon parcours et mes projets." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231a1226'/%3E%3Cg fill='%23ffb7c5'%3E%3Cellipse cx='20' cy='12' rx='5' ry='8'/%3E%3Cellipse cx='20' cy='12' rx='5' ry='8' transform='rotate(72 20 20)'/%3E%3Cellipse cx='20' cy='12' rx='5' ry='8' transform='rotate(144 20 20)'/%3E%3Cellipse cx='20' cy='12' rx='5' ry='8' transform='rotate(216 20 20)'/%3E%3Cellipse cx='20' cy='12' rx='5' ry='8' transform='rotate(288 20 20)'/%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='2.6' fill='%23f2d7a0'/%3E%3C/svg%3E"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -146,10 +155,9 @@
             Étudiante en Master 1 MIAGE à l'UFR SEG de l'Université Gaston Berger de Saint&#8209;Louis.
           </p>
 
-          <div class="boutons">
+                  <div class="boutons">
             <a href="#contact" class="bouton">Discutons</a>
-            <!-- À REMPLACER : le lien vers ton CV en PDF -->
-            <a href="#" class="bouton bouton-contour">Télécharger mon CV</a>
+            <a href="#" class="bouton bouton-contour" id="lien-cv" download hidden>Télécharger mon CV</a>
           </div>
         </div>
 
@@ -501,27 +509,11 @@
             plaisir.
           </p>
 
-          <!-- À REMPLACER : ton vrai email (deux fois) -->
-          <a href="binthussein2801@gmail.com" class="email">
-            binthussein2801@gmail.com
-          </a>
+                  <a href="#" class="email" id="lien-email" hidden></a>
 
           <div class="boutons">
-            <a
-              href="https://github.com/Sokhna-Astou"
-              class="bouton bouton-contour"
-              target="_blank"
-              rel="noopener"
-              >GitHub ↗</a
-            >
-            <!-- À REMPLACER : ton lien LinkedIn quand ton compte sera créé -->
-            <a
-              href="#"
-              class="bouton bouton-contour"
-              target="_blank"
-              rel="noopener"
-              >LinkedIn ↗</a
-            >
+            <a href="#" class="bouton bouton-contour" id="lien-github" target="_blank" rel="noopener" hidden>GitHub ↗</a>
+            <a href="#" class="bouton bouton-contour" id="lien-linkedin" target="_blank" rel="noopener" hidden>LinkedIn ↗</a>
           </div>
         </div>
       </section>

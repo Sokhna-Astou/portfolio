@@ -3,6 +3,14 @@
 //  Pour ajouter quelque chose : copie une ligne et modifie-la.
 //  Attention : garde les guillemets "..." et les virgules entre les éléments.
 // =====================================================
+// ---------- TES LIENS ----------
+// Laisse "" tant que tu n'as pas le lien : le bouton ne s'affiche pas.
+const LIENS = {
+  email: "binthussein2801@gmail.com",
+  linkedin: "", // exemple : "https://www.linkedin.com/in/ton-profil"
+  cv: "", // exemple : "cv/CV-Sokhna-Astou-Diagne.pdf"
+  github: "https://github.com/Sokhna-Astou",
+};
 
 // ---------- FORMATION (du plus récent au plus ancien) ----------
 // lieu et detail sont facultatifs : laisse "" pour ne rien afficher

@@ -912,3 +912,18 @@ if (groupeSol) {
     );
   }
 }
+// ---------- 10. LES LIENS (email, LinkedIn, CV, GitHub) ----------
+// Un bouton n'apparaît que si son lien est rempli dans donnees.js
+function brancherLien(id, adresse, texte) {
+  const lien = document.getElementById(id);
+  if (!lien || !adresse) return; // sans adresse, le bouton reste caché
+
+  lien.href = adresse;
+  if (texte) lien.textContent = texte;
+  lien.hidden = false;
+}
+
+brancherLien("lien-cv", LIENS.cv);
+brancherLien("lien-github", LIENS.github);
+brancherLien("lien-linkedin", LIENS.linkedin);
+if (LIENS.email) brancherLien("lien-email", "mailto:" + LIENS.email, LIENS.email);
