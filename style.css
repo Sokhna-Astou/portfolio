@@ -67,22 +67,54 @@ main,
 
 .soleil {
   position: absolute;
-  left: 46%;
+  left: var(--soleil-x, 82%);
   top: var(--soleil-y);
-  width: clamp(110px, 15vw, 210px);
+  width: clamp(100px, 11vw, 160px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle, #fffbea 0%, var(--soleil-couleur) 45%, transparent 72%);
+  /* Le disque : un cœur très clair, puis la couleur du soleil, avec un bord très doux */
+  background: radial-gradient(
+    circle,
+    #fffef6 0%,
+    #fffef6 22%,
+    var(--soleil-couleur) 55%,
+    transparent 72%
+  );
+  /* Deux lueurs, une proche et une très large */
+  box-shadow:
+    0 0 50px 20px color-mix(in srgb, var(--soleil-couleur) 55%, transparent),
+    0 0 150px 80px color-mix(in srgb, var(--soleil-couleur) 28%, transparent);
 }
 
+/* Les rayons : très doux, ils tournent lentement */
 .soleil::after {
   content: "";
   position: absolute;
-  inset: -90%;
+  inset: -300%;
+  z-index: -1;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--soleil-couleur) 0%, transparent 62%);
-  opacity: 0.35;
+  background: repeating-conic-gradient(
+    from 0deg,
+    color-mix(in srgb, var(--soleil-couleur) 26%, transparent) 0deg 2.5deg,
+    transparent 2.5deg 12deg
+  );
+  -webkit-mask-image: radial-gradient(circle, transparent 9%, #000 14%, transparent 56%);
+  mask-image: radial-gradient(circle, transparent 9%, #000 14%, transparent 56%);
+  opacity: 0.5;
+  animation: rayonner 240s linear infinite;
+}
+
+@keyframes rayonner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soleil::after {
+    animation: none;
+  }
 }
 
 .ciel-etoiles {
@@ -247,11 +279,13 @@ main,
   font-size: clamp(2.6rem, 5.6vw, 6rem);
   line-height: 1.2;
   padding: 0 0.2em 0 0.05em;
-  background: linear-gradient(90deg, var(--rose-doux), var(--petale), var(--lavande));
+  /* Plus clair que les fleurs : crème, rose très pâle, lavande pâle */
+  background: linear-gradient(90deg, #fff3f6, #ffd6e0 50%, #d9c2e8);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 22px rgba(255, 183, 197, 0.3));
+  /* Un halo sombre et doux détache les lettres de ce qu'il y a derrière */
+  filter: drop-shadow(0 0 2px rgba(18, 12, 28, 0.55)) drop-shadow(0 4px 16px rgba(18, 12, 28, 0.5));
 }
 
 .nom-famille {
@@ -260,14 +294,21 @@ main,
   font-size: clamp(1.9rem, 4.4vw, 4.8rem);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  background: linear-gradient(180deg, rgba(255, 183, 197, 0.3), rgba(205, 180, 219, 0.05));
+  background: linear-gradient(180deg, rgba(255, 214, 224, 0.35), rgba(205, 180, 219, 0.08));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--petale);
-  filter: drop-shadow(0 0 18px rgba(255, 183, 197, 0.35));
+  -webkit-text-stroke: 1.6px #ffe4ec;
+  filter: drop-shadow(0 0 2px rgba(18, 12, 28, 0.6)) drop-shadow(0 3px 14px rgba(18, 12, 28, 0.5));
 }
 
+.presentation {
+  max-width: 30rem;
+  font-size: clamp(0.85rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--texte);
+  text-wrap: balance;
+}
 .ornement {
   display: flex;
   align-items: center;
@@ -293,13 +334,6 @@ main,
   }
 }
 
-.presentation {
-  max-width: 30rem;
-  font-size: clamp(0.85rem, 1.3vw, 1.15rem);
-  line-height: 1.7;
-  color: var(--rose-doux);
-  text-wrap: balance;
-}
 
 .hero .boutons {
   justify-content: flex-start;

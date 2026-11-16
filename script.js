@@ -407,10 +407,10 @@ const etoilesConteneur = document.getElementById("ciel-etoiles");
 
 // Les étapes du ciel (p = avancement dans la page, de 0 à 1). Les couleurs sont en [rouge, vert, bleu].
 const ETAPES_CIEL = [
-  { p: 0, haut: [93, 81, 137], milieu: [176, 112, 154], bas: [240, 181, 154], soleilY: 16, soleil: [255, 240, 205], etoiles: 0 },
-  { p: 0.35, haut: [106, 79, 138], milieu: [208, 116, 154], bas: [246, 167, 122], soleilY: 40, soleil: [255, 214, 150], etoiles: 0 },
-  { p: 0.7, haut: [61, 47, 107], milieu: [140, 74, 133], bas: [224, 112, 138], soleilY: 74, soleil: [255, 160, 130], etoiles: 0.15 },
-  { p: 1, haut: [26, 18, 38], milieu: [45, 32, 80], bas: [90, 52, 112], soleilY: 108, soleil: [255, 130, 130], etoiles: 1 },
+  { p: 0, haut: [93, 81, 137], milieu: [176, 112, 154], bas: [240, 181, 154], soleilX: 82, soleilY: 14, soleil: [255, 240, 205], etoiles: 0 },
+  { p: 0.35, haut: [106, 79, 138], milieu: [208, 116, 154], bas: [246, 167, 122], soleilX: 78, soleilY: 38, soleil: [255, 214, 150], etoiles: 0 },
+  { p: 0.7, haut: [61, 47, 107], milieu: [140, 74, 133], bas: [224, 112, 138], soleilX: 72, soleilY: 72, soleil: [255, 160, 130], etoiles: 0.15 },
+  { p: 1, haut: [26, 18, 38], milieu: [45, 32, 80], bas: [90, 52, 112], soleilX: 66, soleilY: 108, soleil: [255, 130, 130], etoiles: 1 },
 ];
 
 // Mélange deux couleurs : t = 0 donne la première, t = 1 la seconde
@@ -439,6 +439,7 @@ function majCiel() {
   ciel.style.setProperty("--ciel-bas", enCouleur(melanger(a.bas, b.bas, t)));
   ciel.style.setProperty("--soleil-couleur", enCouleur(melanger(a.soleil, b.soleil, t)));
   ciel.style.setProperty("--soleil-y", a.soleilY + (b.soleilY - a.soleilY) * t + "%");
+ ciel.style.setProperty("--soleil-x", a.soleilX + (b.soleilX - a.soleilX) * t + "%");
   ciel.style.setProperty("--etoiles", a.etoiles + (b.etoiles - a.etoiles) * t);
 }
 
@@ -684,9 +685,10 @@ if (scene && groupeArbre && groupeCanopee) {
 
   // --- Le plafond de fleurs : mince au-dessus du texte, épais au-dessus de l'arbre ---
   function bordCanopee(x) {
-    const t = Math.min(Math.max((x - 550) / 700, 0), 1);
+    // Mince et haut au-dessus du texte, puis de plus en plus épais au-dessus de l'arbre
+    const t = Math.min(Math.max((x - 800) / 520, 0), 1);
     const douce = t * t * (3 - 2 * t);
-    return 120 + 320 * douce + 40 * Math.sin(x / 95);
+    return 95 + 350 * douce + 22 * Math.sin(x / 95);
   }
 
   for (let i = 0; i < NOMBRE_FLEURS_CANOPEE; i++) {
@@ -808,4 +810,35 @@ if (groupeLivres) {
       dessinerLivre(x, Math.min(reste, 20), rangee.base, entreLivres(rangee.haut * 0.7, rangee.haut));
     }
   });
+}
+// --- Le tapis de pétales tombés sur le sol ---
+const groupeSol = document.getElementById("sol-petales");
+
+if (groupeSol) {
+  const hasardSol = hasardGraine(7 + 200);
+
+  function entreSol(min, max) {
+    return hasardSol() * (max - min) + min;
+  }
+
+  const COULEURS_SOL = ["#ffd6e0", "#ffb7c5", "#ffe4ec", "#f7a8bd", "#e8b9d6"];
+  const NOMBRE_PETALES_SOL = window.innerWidth < 900 ? 90 : 190;
+
+  for (let i = 0; i < NOMBRE_PETALES_SOL; i++) {
+    // Six pétales sur dix tombent près de l'arbre, les autres un peu partout
+    const x = hasardSol() < 0.6 ? entreSol(950, 1550) : entreSol(0, 1600);
+    const y = entreSol(1196, 1244);
+
+    groupeSol.appendChild(
+      creerSvg("ellipse", {
+        cx: x,
+        cy: y,
+        rx: entreSol(4, 8),
+        ry: entreSol(2, 3.6),
+        transform: "rotate(" + entreSol(-40, 40) + " " + x + " " + y + ")",
+        fill: COULEURS_SOL[Math.floor(hasardSol() * COULEURS_SOL.length)],
+        opacity: entreSol(0.6, 0.95),
+      })
+    );
+  }
 }
