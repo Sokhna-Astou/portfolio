@@ -115,9 +115,11 @@
         </svg>
         <span class="logo-texte">SADDY</span>
       </a>
-      <nav>
-        <a href="#apropos">À propos</a>
+            <nav>
+        <a href="#formation">Formation</a>
+        <a href="#competences">Compétences</a>
         <a href="#projets">Projets</a>
+        <a href="#engagement">Engagement</a>
         <a href="#passions">Passions</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -127,7 +129,7 @@
       <!-- ACCUEIL -->
       <section class="hero" id="accueil">
         <div class="hero-texte">
-          <p class="etiquette">Étudiante · Développeuse · Créatrice</p>
+                   <p class="etiquette">Développeuse · Gestionnaire · Créatrice</p>
 
           <h1 class="nom">
             <span class="prenom">Sokhna Astou</span>
@@ -140,8 +142,8 @@
             <span class="trait"></span>
           </div>
 
-          <p class="presentation">
-            Étudiante en L3 MIAGE à l'Université Gaston Berger de Saint&#8209;Louis.
+                   <p class="presentation">
+            Étudiante en Master 1 MIAGE à l'UFR SEG de l'Université Gaston Berger de Saint&#8209;Louis.
           </p>
 
           <div class="boutons">
@@ -404,80 +406,80 @@
           </svg>
         </div>
       </section>
-
-      <!-- À PROPOS -->
-      <section class="section" id="apropos">
+      <!-- FORMATION -->
+      <section class="section" id="formation">
         <div class="conteneur">
-          <p class="surtitre">01 — À propos</p>
-          <h2 class="titre-section">Qui suis-je ?</h2>
+          <span class="numero-fond" aria-hidden="true">01</span>
+          <p class="surtitre">01 — Parcours</p>
+          <h2 class="titre-section">Formation</h2>
 
-          <!-- À MODIFIER : écris ici ta vraie présentation -->
+          <!-- À MODIFIER : ta présentation en quelques lignes -->
           <p class="texte-principal">
-            Je suis Sokhna Astou Diagne, étudiante en troisième année de MIAGE à
-            l'Université Gaston Berger. J'aime transformer des idées en
-            applications utiles, de la conception jusqu'à la mise en ligne.
+            Étudiante en Master 1 MIAGE à l'Université Gaston Berger, je suis
+            un parcours qui allie informatique et gestion : concevoir des
+            applications, et comprendre l'organisation qui les utilise.
           </p>
 
-          <div class="grille">
-            <article class="carte">
-              <h3>Formation</h3>
-              <p>Licence 3 MIAGE, Université Gaston Berger.</p>
-            </article>
-            <article class="carte">
-              <h3>Passions</h3>
-              <p>Développement logiciel, bases de données et gestion de projet.</p>
-            </article>
-            <article class="carte">
-              <h3>Engagement</h3>
-              <p>Membre du Club MIAGE.</p>
-            </article>
-          </div>
+          <div class="formation-liste" id="liste-formations"></div>
+        </div>
+      </section>
+
+      <!-- COMPÉTENCES -->
+      <section class="section" id="competences">
+        <div class="conteneur">
+          <span class="numero-fond" aria-hidden="true">02</span>
+          <p class="surtitre">02 — Savoir-faire</p>
+          <h2 class="titre-section">Compétences</h2>
+
+          <p class="texte-principal">
+            Informatique et gestion : chaque compétence s'appuie sur un projet,
+            un cours ou une responsabilité.
+          </p>
+
+          <div class="competences" id="liste-competences"></div>
+          <p class="langues" id="langues" hidden></p>
         </div>
       </section>
 
       <!-- PROJETS (construits à partir de donnees.js) -->
       <section class="section" id="projets">
         <div class="conteneur">
-          <p class="surtitre">02 — Projets</p>
-          <h2 class="titre-section">Ce que j'ai construit</h2>
+          <span class="numero-fond" aria-hidden="true">03</span>
+          <p class="surtitre">03 — Réalisations</p>
+          <h2 class="titre-section">Projets</h2>
 
           <div class="grille" id="liste-projets"></div>
+        </div>
+      </section>
+
+      <!-- ENGAGEMENT -->
+      <section class="section" id="engagement">
+        <div class="conteneur">
+          <span class="numero-fond" aria-hidden="true">04</span>
+          <p class="surtitre">04 — Leadership</p>
+          <h2 class="titre-section">Engagement</h2>
+
+          <p class="texte-principal">
+            S'engager, c'est apprendre à coordonner, à décider et à fédérer.
+            Voici où je m'investis.
+          </p>
+
+          <div class="grille" id="liste-engagements"></div>
         </div>
       </section>
 
       <!-- PASSIONS : AU-DELÀ DU CODE -->
       <section class="section" id="passions">
         <div class="conteneur">
-          <p class="surtitre">03 — Passions</p>
+          <span class="numero-fond" aria-hidden="true">05</span>
+          <p class="surtitre">05 — Passions</p>
           <h2 class="titre-section">Au-delà du code</h2>
 
-          <!-- À MODIFIER : présente-toi en quelques mots, hors développement -->
-          <p class="texte-principal">
-            Derrière l'écran, il y a aussi des histoires et des images. Voici ce
-            qui nourrit ma curiosité et ma créativité.
-          </p>
+          <div class="grille-passions" id="liste-passions"></div>
 
-          <!-- BLOC LECTURE (livres dans donnees.js) -->
+          <!-- Les photos (dans donnees.js) -->
           <div class="bloc">
-            <h3 class="bloc-titre"><span>📖</span> Lecture</h3>
-
-            <!-- À MODIFIER : pourquoi tu aimes lire -->
-            <p class="bloc-texte">
-              Écris ici pourquoi tu aimes lire et ce que la lecture t'apporte.
-            </p>
-
-            <div class="livres" id="liste-livres"></div>
-          </div>
-
-          <!-- BLOC PHOTOGRAPHIE (photos dans donnees.js) -->
-          <div class="bloc">
-            <h3 class="bloc-titre"><span>📸</span> Photographie</h3>
-
-            <!-- À MODIFIER : ton regard sur la photo -->
-            <p class="bloc-texte">
-              Pas besoin d'un gros appareil : mon téléphone et un regard attentif
-              suffisent pour garder les petits instants qui me touchent.
-            </p>
+            <h3 class="bloc-titre"><span>📸</span> Quelques-unes de mes photos</h3>
 
             <div class="galerie" id="galerie"></div>
 
@@ -491,7 +493,8 @@
       <!-- CONTACT -->
       <section class="section" id="contact">
         <div class="conteneur">
-          <p class="surtitre">04 — Contact</p>
+          <span class="numero-fond" aria-hidden="true">06</span>
+          <p class="surtitre">06 — Contact</p>
           <h2 class="titre-section">Discutons</h2>
           <p class="texte-principal">
             Une idée, une opportunité, une question ? Écris-moi, je réponds avec
@@ -499,8 +502,8 @@
           </p>
 
           <!-- À REMPLACER : ton vrai email (deux fois) -->
-          <a href="mailto:ton-email@exemple.com" class="email">
-            ton-email@exemple.com
+          <a href="binthussein2801@gmail.com" class="email">
+            binthussein2801@gmail.com
           </a>
 
           <div class="boutons">

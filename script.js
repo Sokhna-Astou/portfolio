@@ -71,13 +71,56 @@ function decoder(element, texte, duree) {
 
   requestAnimationFrame(image);
 }
-
 // ---------- 4. LE CONTENU, CONSTRUIT À PARTIR DE donnees.js ----------
 function creerElement(balise, classe, texte) {
   const element = document.createElement(balise);
   if (classe) element.className = classe;
   if (texte) element.textContent = texte;
   return element;
+}
+
+// Petite fonction : [lieu, période] devient "lieu · période" (en ignorant ce qui est vide)
+function assembler(morceaux) {
+  return morceaux.filter(Boolean).join(" · ");
+}
+
+// --- La formation ---
+const listeFormations = document.getElementById("liste-formations");
+
+FORMATIONS.forEach((formation) => {
+  const item = creerElement("article", "formation-item");
+  const corps = document.createElement("div");
+
+  corps.append(creerElement("h3", "", formation.titre));
+
+  const infos = assembler([formation.lieu, formation.periode]);
+  if (infos) corps.append(creerElement("p", "formation-infos", infos));
+  if (formation.detail) corps.append(creerElement("p", "formation-detail", formation.detail));
+
+  item.append(creerElement("span", "formation-tiret"), corps);
+  listeFormations.append(item);
+});
+
+// --- Les compétences ---
+const listeCompetences = document.getElementById("liste-competences");
+
+COMPETENCES.forEach((groupe) => {
+  const bloc = creerElement("div", "categorie");
+  const liste = creerElement("ul", "pastilles");
+
+  bloc.append(creerElement("h3", "categorie-nom", groupe.categorie));
+  groupe.items.forEach((competence) => liste.append(creerElement("li", "", competence)));
+
+  bloc.append(liste);
+  listeCompetences.append(bloc);
+});
+
+// La ligne des langues : elle n'apparaît que si elle est remplie
+const ligneLangues = document.getElementById("langues");
+
+if (LANGUES) {
+  ligneLangues.append(creerElement("strong", "", "Langues : "), document.createTextNode(LANGUES));
+  ligneLangues.hidden = false;
 }
 
 // --- Les projets ---
@@ -104,19 +147,48 @@ PROJETS.forEach((projet) => {
   listeProjets.append(carte);
 });
 
-// --- Les livres ---
-const listeLivres = document.getElementById("liste-livres");
+// --- Les engagements ---
+const listeEngagements = document.getElementById("liste-engagements");
 
-LIVRES.forEach((livre) => {
-  const carte = creerElement("article", "livre");
-  const texte = document.createElement("div");
+ENGAGEMENTS.forEach((engagement, index) => {
+  const carte = creerElement("article", "carte carte-engagement");
 
-  texte.append(creerElement("h4", "", livre.titre));
-  texte.append(creerElement("p", "auteur", livre.auteur));
-  texte.append(creerElement("p", "", livre.note));
+  carte.append(creerElement("p", "carte-etiquette", engagement.icone + "  " + String(index + 1).padStart(2, "0")));
+  carte.append(creerElement("h3", "", engagement.role));
+  carte.append(creerElement("p", "carte-infos", assembler([engagement.structure, engagement.periode])));
+  carte.append(creerElement("p", "", engagement.description));
 
-  carte.append(creerElement("div", "livre-dos"), texte);
-  listeLivres.append(carte);
+  const tags = creerElement("ul", "tags");
+  engagement.tags.forEach((tag) => tags.append(creerElement("li", "", tag)));
+  carte.append(tags);
+
+  listeEngagements.append(carte);
+});
+
+// --- Les passions (cartes) ---
+const listePassions = document.getElementById("liste-passions");
+
+PASSIONS.forEach((passion, index) => {
+  const carte = creerElement("article", "carte carte-passion");
+
+  carte.append(creerElement("p", "carte-etiquette", passion.icone + "  " + String(index + 1).padStart(2, "0")));
+  carte.append(creerElement("h3", "", passion.titre));
+  carte.append(creerElement("p", "", passion.texte));
+
+  // Les tuiles de chiffres, seulement s'il y en a
+  if (passion.chiffres && passion.chiffres.length > 0) {
+    const tuiles = creerElement("div", "tuiles");
+
+    passion.chiffres.forEach((chiffre) => {
+      const tuile = creerElement("div", "tuile");
+      tuile.append(creerElement("strong", "", chiffre.valeur), creerElement("span", "", chiffre.legende));
+      tuiles.append(tuile);
+    });
+
+    carte.append(tuiles);
+  }
+
+  listePassions.append(carte);
 });
 
 // --- Les photos ---
@@ -221,7 +293,6 @@ document.addEventListener("keydown", (evenement) => {
   if (evenement.key === "ArrowLeft") montrerPhoto(photoCourante - 1);
   if (evenement.key === "ArrowRight") montrerPhoto(photoCourante + 1);
 });
-
 // ---------- 5. L'ÉCRAN D'INTRO : COMPTEUR, FÉE, PUIS FONDU ----------
 const DUREE_COMPTE = 8000; // durée du comptage, en millisecondes
 
@@ -375,9 +446,9 @@ const decrypteur = new IntersectionObserver(
 
 titres.forEach((titre) => decrypteur.observe(titre));
 
-// ---------- 7. FONDU LÉGER POUR CARTES, LIVRES ET PHOTOS ----------
+// ---------- 7. FONDU LÉGER POUR LES CARTES, LES LISTES ET LES PHOTOS ----------
 const elementsAnimes = document.querySelectorAll(
-  ".texte-principal, .bloc-titre, .bloc-texte, .carte, .livre, .photo, .email, #contact .boutons"
+  ".texte-principal, .bloc-titre, .formation-item, .categorie, .carte, .photo, .email, .langues, #contact .boutons"
 );
 
 elementsAnimes.forEach((element) => {
@@ -400,7 +471,6 @@ const revelateur = new IntersectionObserver(
 );
 
 elementsAnimes.forEach((element) => revelateur.observe(element));
-
 // ---------- 8. LE CIEL : DU JOUR AU CRÉPUSCULE, SELON LE DÉFILEMENT ----------
 const ciel = document.getElementById("ciel");
 const etoilesConteneur = document.getElementById("ciel-etoiles");
