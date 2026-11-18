@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monde 3D · prototype</title>
+    <style>
+      html {
+        scroll-behavior: auto;
+      }
+
+      body {
+        margin: 0;
+        background: #1a1226;
+        color: #fff0f5;
+        font-family: system-ui, sans-serif;
+      }
+
+      /* Le décor 3D reste collé à l'écran pendant qu'on défile */
+      #monde {
+        position: fixed;
+        inset: 0;
+      }
+
+      #monde canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* La "longueur" du voyage : une page très haute, dans laquelle on défile */
+      .espace {
+        height: 900vh;
+      }
+
+      /* Le petit compteur de réglage */
+      .hud {
+        position: fixed;
+        left: 1rem;
+        bottom: 1rem;
+        z-index: 5;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.5rem;
+        background: rgba(18, 12, 28, 0.65);
+        font: 12px/1.5 monospace;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="monde"></div>
+    <div class="espace"></div>
+    <div class="hud" id="hud"></div>
+
+    <script type="module" src="monde3d.js"></script>
+  </body>
+</html>
