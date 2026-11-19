@@ -191,108 +191,6 @@ PASSIONS.forEach((passion, index) => {
   listePassions.append(carte);
 });
 
-// --- Les photos ---
-const PHOTOS_VISIBLES = 6;
-const galerie = document.getElementById("galerie");
-const boutonVoirPlus = document.getElementById("voir-plus");
-
-const photosAffichees =
-  PHOTOS.length > 0
-    ? PHOTOS
-    : [{ legende: "Titre de la photo" }, { legende: "Titre de la photo" }, { legende: "Titre de la photo" }];
-
-photosAffichees.forEach((photo, index) => {
-  const figure = creerElement("figure", "photo");
-  let visuel;
-
-  if (photo.fichier) {
-    visuel = document.createElement("img");
-    visuel.src = photo.fichier;
-    visuel.alt = photo.description || photo.legende || "";
-    visuel.loading = "lazy";
-    visuel.decoding = "async";
-
-    figure.classList.add("cliquable");
-    figure.tabIndex = 0;
-    figure.setAttribute("role", "button");
-    figure.setAttribute("aria-label", "Agrandir : " + (photo.legende || "photo"));
-    figure.addEventListener("click", () => ouvrirLightbox(index));
-    figure.addEventListener("keydown", (evenement) => {
-      if (evenement.key === "Enter") ouvrirLightbox(index);
-    });
-  } else {
-    visuel = creerElement("div", "photo-vide", "📸");
-  }
-
-  figure.append(visuel, creerElement("figcaption", "", photo.legende || ""));
-
-  if (index >= PHOTOS_VISIBLES) figure.classList.add("cachee");
-
-  galerie.append(figure);
-});
-
-if (photosAffichees.length > PHOTOS_VISIBLES) {
-  let toutAffiche = false;
-  boutonVoirPlus.parentElement.hidden = false;
-
-  function majBouton() {
-    boutonVoirPlus.textContent = toutAffiche
-      ? "Voir moins"
-      : "Voir toutes les photos (" + photosAffichees.length + ")";
-  }
-
-  majBouton();
-
-  boutonVoirPlus.addEventListener("click", () => {
-    toutAffiche = !toutAffiche;
-    galerie.querySelectorAll(".photo").forEach((figure, index) => {
-      if (index >= PHOTOS_VISIBLES) figure.classList.toggle("cachee", !toutAffiche);
-    });
-    majBouton();
-  });
-}
-
-// --- L'agrandissement des photos (lightbox) ---
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightbox-image");
-const lightboxLegende = document.getElementById("lightbox-legende");
-let photoCourante = 0;
-
-function montrerPhoto(index) {
-  photoCourante = (index + PHOTOS.length) % PHOTOS.length;
-  const photo = PHOTOS[photoCourante];
-
-  lightboxImage.src = photo.fichier;
-  lightboxImage.alt = photo.description || photo.legende || "";
-  lightboxLegende.textContent = photo.legende || "";
-}
-
-function ouvrirLightbox(index) {
-  montrerPhoto(index);
-  lightbox.hidden = false;
-  document.body.classList.add("fige");
-}
-
-function fermerLightbox() {
-  lightbox.hidden = true;
-  document.body.classList.remove("fige");
-  lightboxImage.removeAttribute("src");
-}
-
-document.getElementById("lightbox-fermer").addEventListener("click", fermerLightbox);
-document.getElementById("lightbox-prec").addEventListener("click", () => montrerPhoto(photoCourante - 1));
-document.getElementById("lightbox-suiv").addEventListener("click", () => montrerPhoto(photoCourante + 1));
-
-lightbox.addEventListener("click", (evenement) => {
-  if (evenement.target === lightbox) fermerLightbox();
-});
-
-document.addEventListener("keydown", (evenement) => {
-  if (lightbox.hidden) return;
-  if (evenement.key === "Escape") fermerLightbox();
-  if (evenement.key === "ArrowLeft") montrerPhoto(photoCourante - 1);
-  if (evenement.key === "ArrowRight") montrerPhoto(photoCourante + 1);
-});
 // ---------- 5. L'ÉCRAN D'INTRO : COMPTEUR, FÉE, PUIS FONDU ----------
 const DUREE_COMPTE = 8000; // durée du comptage, en millisecondes
 
@@ -471,138 +369,6 @@ const revelateur = new IntersectionObserver(
 );
 
 elementsAnimes.forEach((element) => revelateur.observe(element));
-
-// ---------- 7b. LE VOYAGE : LE ZOOM VERS L'ÉCRAN ----------
-const voyage = document.getElementById("voyage");
-const voyageScene = document.getElementById("voyage-scene");
-const accueil = document.getElementById("accueil");
-const svgScene = document.getElementById("scene-svg");
-const texteAccueil = document.querySelector(".hero-texte");
-const conteneurScene = document.getElementById("scene");
-
-// ----- Tes boutons de réglage -----
-const DUREE_ZOOM = 2.5; // la longueur du zoom, en "écrans" de défilement (plus grand = plus lent)
-const CENTRE_ECRAN = { x: 565, y: 895.5 }; // le centre de l'écran du milieu, dans le dessin
-const TAILLE_ECRAN = { l: 170, h: 115 }; // la partie lumineuse de cet écran, dans le dessin
-const DESSIN = { l: 1600, h: 1250 }; // la taille du dessin de la scène
-
-const requeteGrandEcran = window.matchMedia("(min-width: 900px)");
-let voyageActif = false;
-let debutZoom = 0;
-let longueurZoom = 1;
-let finDuZoom = 1;
-let largeurAccueil = 0;
-let hauteurAccueil = 0;
-let hauteurFenetre = 0;
-let hautCollage = 0;
-
-function limiter(x) {
-  return Math.min(Math.max(x, 0), 1);
-}
-
-// Une courbe qui démarre et finit doucement
-function adoucir(t) {
-  return t * t * (3 - 2 * t);
-}
-
-// Remet tout à l'état normal (sur petit écran, ou pour ceux qui préfèrent éviter les animations)
-function reinitialiserVoyage() {
-  if (voyage) voyage.style.height = "";
-  if (voyageScene) voyageScene.style.top = "";
-
-  if (svgScene) svgScene.setAttribute("viewBox", "0 0 " + DESSIN.l + " " + DESSIN.h);
-  if (texteAccueil) {
-    texteAccueil.style.opacity = "";
-    texteAccueil.style.visibility = "";
-  }
-  if (conteneurScene) conteneurScene.classList.remove("zoom-actif");
-}
-
-// Mesure la page : où commence le zoom, et sur quelle longueur
-function mesurerVoyage() {
-  voyageActif = Boolean(voyage && svgScene && requeteGrandEcran.matches && !reduireMouvement);
-
-  if (!voyageActif) {
-    reinitialiserVoyage();
-    return;
-  }
-
-  largeurAccueil = accueil.offsetWidth;
-  hauteurAccueil = accueil.offsetHeight;
-  hauteurFenetre = window.innerHeight;
-
-  // Le décor se colle à l'écran quand son bas touche le bas de la fenêtre
-  hautCollage = Math.min(hauteurFenetre - hauteurAccueil, 0);
-  voyageScene.style.top = hautCollage + "px";
-
-  longueurZoom = DUREE_ZOOM * hauteurFenetre;
-  voyage.style.height = hauteurAccueil + longueurZoom + "px";
-
-  const hautDuVoyage = voyage.getBoundingClientRect().top + window.scrollY;
-  debutZoom = hautDuVoyage - hautCollage;
-  finDuZoom = debutZoom + longueurZoom;
-}
-
-// Applique le zoom pour un avancement t (de 0 = pas de zoom à 1 = l'écran remplit la fenêtre)
-function appliquerZoom(t) {
-  // Combien de pixels par unité du dessin, au départ et à l'arrivée
-  const k0 = largeurAccueil / DESSIN.l;
-  const kFinal = Math.max(largeurAccueil / TAILLE_ECRAN.l, hauteurFenetre / TAILLE_ECRAN.h) * 1.03;
-
-  // On multiplie le grossissement (plutôt que de l'additionner) : le zoom paraît régulier à l'œil
-  const k = k0 * Math.pow(kFinal / k0, adoucir(t));
-
-  // Où est le centre de l'écran dans l'accueil, et où veut-on l'amener (le centre de la fenêtre) ?
-  const departX = (CENTRE_ECRAN.x / DESSIN.l) * largeurAccueil;
-  const departY = (CENTRE_ECRAN.y / DESSIN.h) * hauteurAccueil;
-  const arriveeX = largeurAccueil / 2;
-  const arriveeY = hauteurFenetre / 2 - hautCollage;
-
-  const glisse = adoucir(limiter(t * 1.1)); // le centrage se termine un peu avant la fin du zoom
-  const x = departX + (arriveeX - departX) * glisse;
-  const y = departY + (arriveeY - departY) * glisse;
-
-  // La partie du dessin qu'on regarde : un rectangle qui rétrécit autour de l'écran
-  const gauche = CENTRE_ECRAN.x - x / k;
-  const haut = CENTRE_ECRAN.y - y / k;
-  svgScene.setAttribute("viewBox", gauche + " " + haut + " " + largeurAccueil / k + " " + hauteurAccueil / k);
-
-  // Le texte s'efface au début du zoom
-  const effacement = limiter(t / 0.22);
-  texteAccueil.style.opacity = effacement === 0 ? "" : 1 - effacement;
-  texteAccueil.style.visibility = effacement >= 1 ? "hidden" : "";
-
-  conteneurScene.classList.toggle("zoom-actif", t > 0.02);
-}
-
-function majZoom() {
-  if (!voyageActif) return;
-  appliquerZoom(limiter((window.scrollY - debutZoom) / longueurZoom));
-}
-
-// On met à jour au défilement, mais au maximum une fois par image affichée
-let zoomEnAttente = false;
-
-window.addEventListener(
-  "scroll",
-  () => {
-    if (zoomEnAttente) return;
-    zoomEnAttente = true;
-    requestAnimationFrame(() => {
-      majZoom();
-      zoomEnAttente = false;
-    });
-  },
-  { passive: true }
-);
-
-window.addEventListener("resize", () => {
-  mesurerVoyage();
-  majZoom();
-});
-
-mesurerVoyage();
-majZoom();
 // ---------- 8. LE CIEL : DU JOUR AU CRÉPUSCULE, SELON LE DÉFILEMENT ----------
 const ciel = document.getElementById("ciel");
 const etoilesConteneur = document.getElementById("ciel-etoiles");
@@ -625,9 +391,9 @@ function enCouleur(rvb) {
 }
 
 function majCiel() {
-  // Le coucher de soleil se déroule pendant le voyage : il est terminé quand on entre dans l'écran
-  const defilable = voyageActif ? finDuZoom : document.documentElement.scrollHeight - window.innerHeight;
+  const defilable = document.documentElement.scrollHeight - window.innerHeight;
   const p = defilable > 0 ? Math.min(Math.max(window.scrollY / defilable, 0), 1) : 0;
+
   // On cherche entre quelles deux étapes on se trouve
   let i = 0;
   while (i < ETAPES_CIEL.length - 2 && p > ETAPES_CIEL[i + 1].p) i++;
@@ -871,11 +637,11 @@ if (scene && groupeArbre && groupeCanopee) {
   }
 
   // Les grandes branches qui partent du haut du tronc : celles de gauche vont loin sous le plafond de fleurs
-    const BRANCHES_MAITRESSES = [
-    { angle: -1.0, longueur: 215 },
-    { angle: -0.7, longueur: 195 },
-    { angle: -0.4, longueur: 180 },
-    { angle: -0.1, longueur: 175 },
+  const BRANCHES_MAITRESSES = [
+    { angle: -1.25, longueur: 285 },
+    { angle: -0.9, longueur: 235 },
+    { angle: -0.5, longueur: 195 },
+    { angle: -0.12, longueur: 175 },
     { angle: 0.3, longueur: 180 },
     { angle: 0.75, longueur: 150 },
     { angle: 1.2, longueur: 105 },

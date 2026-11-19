@@ -1,0 +1,258 @@
+/* =====================================================
+   DÉCOR VIVANT ET OBJETS CLIQUABLES
+   ===================================================== */
+
+/* Les textes de l'accueil laissent passer la souris vers les objets du décor (sauf les boutons) */
+.hero-texte {
+  pointer-events: none;
+}
+
+.hero-texte a,
+.hero-texte button {
+  pointer-events: auto;
+}
+
+.astuce {
+  margin-top: 0.4rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 240, 245, 0.75);
+}
+
+/* ---------- OBJETS CLIQUABLES ---------- */
+.objet-cliquable {
+  pointer-events: auto;
+  cursor: pointer;
+  outline: none;
+  transition: filter 0.3s ease;
+}
+
+.objet-cliquable:hover,
+.objet-cliquable:focus-visible {
+  filter: drop-shadow(0 0 8px rgba(255, 214, 224, 0.95)) brightness(1.1);
+}
+
+/* Zone invisible sur le tronc : elle capte la souris même si elle est transparente */
+#vie-arbre-zone {
+  pointer-events: all;
+}
+
+/* Le halo qui s'allume derrière le tronc quand on survole l'arbre */
+#vie-arbre-halo {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* L'étiquette qui suit la souris */
+.info-objet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.8rem;
+  background: rgba(26, 18, 38, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 183, 197, 0.45);
+  color: var(--texte);
+  line-height: 1.4;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.info-objet.visible {
+  opacity: 1;
+}
+
+.info-objet strong {
+  display: block;
+  font-family: "Bodoni Moda", serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--rose-doux);
+}
+
+.info-objet span {
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  color: var(--or);
+}
+
+/* ---------- LE DÉCOR S'ANIME ---------- */
+
+/* La LED du bureau et celle du clavier respirent */
+#bureau line[stroke-width="12"],
+#bureau line[stroke-width="7"],
+#accessoires line[stroke-width="8"] {
+  animation: led-respire 3.4s ease-in-out infinite alternate;
+}
+
+#accessoires rect[fill="url(#sc-led)"] {
+  animation: led-clavier 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes led-respire {
+  from {
+    opacity: 0.05;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+@keyframes led-clavier {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Les ventilateurs de la tour tournent */
+#tour circle[r="14"] {
+  stroke-dasharray: 22 10;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ventilo 2.2s linear infinite;
+}
+
+@keyframes ventilo {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* La plante se balance, accrochée à son pot */
+#plante {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: plante-balance 5.5s ease-in-out infinite alternate;
+}
+
+@keyframes plante-balance {
+  from {
+    transform: rotate(-1.6deg);
+  }
+  to {
+    transform: rotate(1.8deg);
+  }
+}
+
+/* La robe du mannequin, sur l'écran du milieu, prend les couleurs de la palette */
+#ecran-mode path[d^="M515 876"] {
+  animation: robe-couleur 10s ease-in-out infinite;
+}
+
+@keyframes robe-couleur {
+  0%, 18% { fill: #ffb7c5; }
+  20%, 38% { fill: #cdb4db; }
+  40%, 58% { fill: #fff0f5; }
+  60%, 78% { fill: #f2d7a0; }
+  80%, 98% { fill: #e8a0b4; }
+  100% { fill: #ffb7c5; }
+}
+
+/* L'anneau qui désigne la couleur choisie */
+.anneau-couleur {
+  animation: anneau-couleur 10s ease-in-out infinite;
+}
+
+@keyframes anneau-couleur {
+  0%, 18% { transform: translateX(0); }
+  20%, 38% { transform: translateX(10px); }
+  40%, 58% { transform: translateX(20px); }
+  60%, 78% { transform: translateX(30px); }
+  80%, 98% { transform: translateX(40px); }
+  100% { transform: translateX(0); }
+}
+
+/* Les lucioles */
+.luciole {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f9e7b0;
+  box-shadow: 0 0 8px 3px rgba(242, 215, 160, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  animation: luciole var(--duree, 9s) ease-in-out infinite;
+  animation-delay: var(--delai, 0s);
+}
+
+@keyframes luciole {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  20% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.35;
+    transform: translate(var(--dx), var(--dy));
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--dx) * -0.6), calc(var(--dy) * -1.2));
+  }
+}
+
+/* Les nuages, dans le ciel */
+.nuage {
+  position: absolute;
+  left: -45vw;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 230, 238, 0.3), transparent 68%);
+  filter: blur(8px);
+  animation: nuage var(--duree, 180s) linear infinite;
+  animation-delay: var(--delai, 0s);
+}
+
+@keyframes nuage {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(175vw);
+  }
+}
+
+/* Quand l'accueil n'est plus à l'écran, tout se met en pause (économie de batterie) */
+.scene.en-pause #tour circle[r="14"],
+.scene.en-pause #plante,
+.scene.en-pause .luciole,
+.scene.en-pause .anneau-couleur,
+.scene.en-pause #ecran-mode path[d^="M515 876"],
+.scene.en-pause #bureau line,
+.scene.en-pause #accessoires line,
+.scene.en-pause #accessoires rect {
+  animation-play-state: paused;
+}
+
+/* Pour celles et ceux qui préfèrent éviter les animations */
+@media (prefers-reduced-motion: reduce) {
+  #bureau line,
+  #accessoires line,
+  #accessoires rect,
+  #tour circle[r="14"],
+  #plante,
+  #ecran-mode path[d^="M515 876"],
+  .anneau-couleur {
+    animation: none;
+  }
+
+  .luciole,
+  .nuage {
+    display: none;
+  }
+}

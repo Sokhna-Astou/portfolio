@@ -135,9 +135,6 @@
     </header>
 
     <main>
-            <!-- LE VOYAGE : l'accueil reste collé à l'écran pendant le zoom -->
-      <div class="voyage" id="voyage">
-        <div class="voyage-scene" id="voyage-scene">
       <!-- ACCUEIL -->
       <section class="hero" id="accueil">
         <div class="hero-texte">
@@ -417,8 +414,6 @@
           </svg>
         </div>
       </section>
-              </div>
-      </div>
       <!-- FORMATION -->
       <section class="section" id="formation">
         <div class="conteneur">
@@ -490,16 +485,6 @@
 
           <div class="grille-passions" id="liste-passions"></div>
 
-          <!-- Les photos (dans donnees.js) -->
-          <div class="bloc">
-            <h3 class="bloc-titre"><span>📸</span> Quelques-unes de mes photos</h3>
-
-            <div class="galerie" id="galerie"></div>
-
-            <div class="galerie-actions" hidden>
-              <button type="button" class="bouton bouton-contour" id="voir-plus"></button>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -528,18 +513,9 @@
       <p>© 2026 Sokhna Astou Diagne · Fait avec ✿</p>
     </footer>
 
-    <!-- AGRANDISSEMENT DES PHOTOS -->
-    <div class="lightbox" id="lightbox" hidden>
-      <button type="button" class="lightbox-fermer" id="lightbox-fermer" aria-label="Fermer">✕</button>
-      <button type="button" class="lightbox-nav lightbox-prec" id="lightbox-prec" aria-label="Photo précédente">‹</button>
-      <figure class="lightbox-fig">
-        <img id="lightbox-image" alt="" />
-        <figcaption id="lightbox-legende"></figcaption>
-      </figure>
-      <button type="button" class="lightbox-nav lightbox-suiv" id="lightbox-suiv" aria-label="Photo suivante">›</button>
-    </div>
-
     <script src="donnees.js"></script>
     <script src="script.js"></script>
+        <link rel="stylesheet" href="vie.css" />
+            <script src="vie.js"></script>
   </body>
 </html>

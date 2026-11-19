@@ -1394,18 +1394,3 @@ body.chargement .scene {
     font-size: 0.85rem;
   }
 }
-/* ---------- LE VOYAGE : ZOOM VERS L'ÉCRAN ---------- */
-.voyage {
-  position: relative; /* sa hauteur est réglée par script.js */
-}
-
-/* Le décor reste collé à l'écran pendant le zoom ("top" est réglé par script.js) */
-.voyage-scene {
-  position: sticky;
-  top: 0;
-}
-
-/* Les pétales de l'arbre disparaissent dès que le zoom commence */
-.scene.zoom-actif .petale-arbre {
-  visibility: hidden;
-}
